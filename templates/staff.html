@@ -1,8 +1,20 @@
-{% extends 'base.html' %}
-
-
-{% block title %}Staff{% endblock title %}
-
+{% extends 'base.html' %} 
+{% block title %}Staff{% endblock title %} 
 {% block body %}
-    
+{% for employee in employees %}
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title d-flex mt-2">
+        <img
+          src="https://via.placeholder.com/50x50"
+          class="rounded-circle me-2"
+          alt="..."
+        />Employee Name
+      </h5>
+      <p class="card-text">Department Attendance</p>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% endblock body %}
