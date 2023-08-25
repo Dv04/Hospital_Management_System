@@ -6,9 +6,15 @@ Bootstrap(app=app)
 app.app_context().push()
 app.secret_key = "secret-tunnel"
 
+user = []
+
 @app.route('/')
 def home_page():
-    return render_template('index.html')
+    return render_template('index.html', user=user)
+
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
 
 @app.route('/login')
 def login_page():
@@ -20,19 +26,23 @@ def register_page():
 
 @app.route('/staff')
 def staff_page():
-    return render_template('staff.html')
+    return render_template('staff.html', user=user)
 
 @app.route('/reception')
 def hospital_page():
-    return render_template('reception.html')
+    return render_template('reception.html', user=user)
 
 @app.route('/doctor')
 def doctor_page():
-    return render_template('doctor.html')
+    return render_template('doctor.html', user=user)
 
 @app.route('/patient')
 def patient_page():
-    return render_template('patient.html')
+    return render_template('patient.html', user=user)
+
+@app.route('/pharmacy')
+def pharmacy_page():
+    return render_template('pharmacy.html', user=user)
 
 @app.route('/not_found')
 @app.errorhandler(404)
