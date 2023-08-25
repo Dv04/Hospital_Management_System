@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Pharmacy{% endblock title %}
+
+{% block body %}
+<div id="medicines">
+    {% for medicine in medicines %}
+    <div class="container">
+        <div class="card" style="width: 18rem">
+          <div class="card-body">
+            <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Medicine Name</h5>
+            <p class="card-text">
+                Medicine Description
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+<div id="prescription">
+    <p>A search bar to search for the patient prescription on name basis</p>
+</div>
+{% endblock body %}

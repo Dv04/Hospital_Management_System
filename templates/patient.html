@@ -4,17 +4,22 @@
 {% block title %}Patient{% endblock title %}
 
 {% block body %}
-<div class="container">
-    <div class="card" style="width: 18rem">
-      <div class="card-body">
-        <img src="..." class="card-img-top" alt="..." />
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk
-          of the card's content.
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+<div id="case-history">
+    {% for case in cases %}
+    <div class="container">
+        <div class="card" style="width: 18rem">
+          <div class="card-body">
+              <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Patient Name</h5>
+            <p class="card-text">
+                Case Details
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+      {% endfor %}
+</div>
+<div id="book-appointment">
+    <p>Form Here</p>
+</div>
 {% endblock body %}
