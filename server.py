@@ -35,7 +35,8 @@ def patient_page():
     return render_template('patient.html')
 
 @app.route('/not_found')
-def not_found():
+@app.errorhandler(404)
+def not_found(e):
     return render_template('not_found.html')
 
 if __name__ == "__main__":
