@@ -1,48 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Camera OCR</title>
-</head>
-<body>
-    <!-- Include other HTML elements -->
+{% extends 'base.html' %} {% import "bootstrap/wtf.html" as wtf %} {% block
+title %}Camera{% endblock title %} {% block body %}
+<!-- Include other HTML elements -->
 <video id="cameraFeed" autoplay></video>
 <button id="captureButton">Capture</button>
 <div id="result"></div>
 
 <script>
-    const video = document.getElementById('cameraFeed');
-    const captureButton = document.getElementById('captureButton');
-    const resultDiv = document.getElementById('result');
+  const video = document.getElementById("cameraFeed");
+  const captureButton = document.getElementById("captureButton");
+  const resultDiv = document.getElementById("result");
 
-    async function startCamera() {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-    }
+  async function startCamera() {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.srcObject = stream;
+  }
 
-    captureButton.addEventListener('click', async () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  captureButton.addEventListener("click", async () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        const imageData = canvas.toDataURL('image/jpeg'); // Convert to image data
+    const imageData = canvas.toDataURL("image/jpeg"); // Convert to image data
 
-        // Send imageData to backend
-        const response = await fetch('/process_image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ image: imageData }),
-        });
-
-        const data = await response.json();
-        resultDiv.textContent = data.text; // Display sample text
+    // Send imageData to backend
+    const response = await fetch("/process_image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ image: imageData }),
     });
 
-    startCamera();
+    const data = await response.json();
+    resultDiv.textContent = data.text; // Display sample text
+  });
+
+  startCamera();
 </script>
 
-</body>
-</html>
+{% endblock body %}
