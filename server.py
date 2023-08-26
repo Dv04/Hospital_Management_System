@@ -11,7 +11,7 @@ from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, Registe
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from speechToText import convert_speech_to_text
-
+from predict_disease import predict_disease
 
 from backend.mongoConnect import *
 
@@ -165,6 +165,37 @@ def doctor_page():
     if stt_form.validate_on_submit():
         text = convert_speech_to_text('recorded/recorded-audio.wav')
     return render_template('doctor.html', user=user, stt_form=stt_form, text=text)
+
+@app.route("/predict", methods=["GET", "POST"])
+def disease_prediction():
+    form = DiseaseDetailsForm(request.form)
+    if request.method == "POST":
+        print("Form:", request.form)
+        print("Form Submitted")
+        # if form.validate_on_submit():
+        selected_symptoms = request.form.getlist("symptomp_list")  # Use getlist to handle multiple selections
+        print(selected_symptoms)
+        input_symptoms_str = ",".join(selected_symptoms)
+        result = predict_disease(input_symptoms_str)
+
+        unique_values = set()
+
+        # Iterate through the values of the dictionary and add them to the set
+        for value in result.values():
+            unique_values.add(value)
+
+        # If the set contains only one value, then the prediction is successful
+        if len(unique_values) >= 1:
+            print(unique_values)
+        else:
+            print("Prediction Failed")
+            result = "Prediction Failed"
+        return render_template("prediction.html", form=form, result=unique_values, user=user)
+        # else:
+        #     print("Form Validation Failed")  # Debugging message
+        
+    return render_template("prediction.html", form=form, user=user)
+
 
 @app.route('/patient')
 @logged_in
