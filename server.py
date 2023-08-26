@@ -1,4 +1,3 @@
-
 from functools import wraps
 import os
 from urllib import request
@@ -7,7 +6,13 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 
 from flask_bootstrap import Bootstrap
 import requests
-from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm, STTForm
+from forms import (
+    DiseaseDetailsForm,
+    PatientDetailsForm,
+    LoginUserForm,
+    RegisterUserForm,
+    STTForm,
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from speechToText import convert_speech_to_text
@@ -21,15 +26,17 @@ from PIL import Image
 import io
 
 
-app = Flask(__name__, static_folder='static')
+app = Flask(__name__, static_folder="static")
 Bootstrap(app=app)
 app.app_context().push()
 app.secret_key = "secret-tunnel"
+
 
 class User:
     email = ""
     role = ""
     is_active = False
+
 
 def logged_in(function):
     @wraps(function)
@@ -37,67 +44,66 @@ def logged_in(function):
         if user.is_active:
             return function(*args, **kwargs)
         else:
-            return redirect(url_for('login_page'))
+            return redirect(url_for("login_page"))
+
     return decorated_function
+
 
 user = User()
 
-@app.route('/')
+
+@app.route("/")
 def home_page():
-    return render_template('index.html', logged_in=logged_in, user=user)
+    return render_template("index.html", logged_in=logged_in, user=user)
 
-@app.route('/about')
+
+@app.route("/about")
 def about_page():
-    return render_template('about.html')
+    return render_template("about.html")
 
-@app.route('/login', methods=["GET", "POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login_page():
     user_login = LoginUserForm()
     if user_login.validate_on_submit():
         email = user_login.email.data
         role = user_login.role.data
-        emailCheck = db['users'].find_one({'email' : email})
-        if(emailCheck):
-            hashPassword = emailCheck['password']
-            
+        emailCheck = db["users"].find_one({"email": email})
+        if emailCheck:
+            hashPassword = emailCheck["password"]
+
             password = generate_password_hash(
-                            user_login.password.data,
-                            method='pbkdf2:sha256',
-                            salt_length=8
-                        )
-            
-            if email == emailCheck['email'] and role == emailCheck['role']:
-                password = check_password_hash(
-                    pwhash=hashPassword,
-                    password=password
-                )
+                user_login.password.data, method="pbkdf2:sha256", salt_length=8
+            )
+
+            if email == emailCheck["email"] and role == emailCheck["role"]:
+                password = check_password_hash(pwhash=hashPassword, password=password)
 
                 user.email = email
                 user.role = role
                 user.is_active = True
                 print("Log in successful")
                 return redirect(url_for(f"{role}_page", user=user))
-            
+
             else:
                 print("User does not exist")
-                return redirect(url_for('register_page'))
-            
+                return redirect(url_for("register_page"))
+
         else:
             flash("This Email is not registered. Please try again!")
             print("Wrong Email")
-            return redirect(url_for('login_page'))
-    return render_template('login.html', login_form=user_login, user=user)
+            return redirect(url_for("login_page"))
+    return render_template("login.html", login_form=user_login, user=user)
 
-@app.route('/register', methods=["GET", "POST"])
+
+@app.route("/register", methods=["GET", "POST"])
 def register_page():
     register_form = RegisterUserForm()
     if register_form.validate_on_submit():
         email = register_form.email.data
         name = register_form.name.data
         password = generate_password_hash(
-            register_form.password.data,
-            method='pbkdf2:sha256',
-            salt_length=8
+            register_form.password.data, method="pbkdf2:sha256", salt_length=8
         )
         role = register_form.role.data
         phone_no = register_form.phone_no.data
@@ -115,20 +121,20 @@ def register_page():
             "password": password,
             "phone_no": phone_no,
             "gender": gender,
-            "address": address
+            "address": address,
         }
 
-        if request.method == 'POST':
-            emailCheck = db['users'].find_one({'email' : email})
+        if request.method == "POST":
+            emailCheck = db["users"].find_one({"email": email})
             print("Email cehck:", emailCheck)
 
-            if(emailCheck):
+            if emailCheck:
                 print("Email already exists")
-                return redirect(url_for('register_page'))
-            
-            result = insert('users', data)
-            
-            if(result):
+                return redirect(url_for("register_page"))
+
+            result = insert("users", data)
+
+            if result:
                 print("Inserted Successfully")
                 print(result)
                 return redirect(url_for(f"home_page", user=user))
@@ -137,41 +143,52 @@ def register_page():
                 print(result)
 
         return redirect(url_for(f"{role}_page", user=user))
-    return render_template('register.html', register_form=register_form, user=user)
+    return render_template("register.html", register_form=register_form, user=user)
 
-@app.route('/sign-out')
+
+@app.route("/sign-out")
 @logged_in
 def sign_out_page():
+    user.email = ""
+    user.role = ""
     user.is_active = False
-    return redirect( url_for('home_page') )
+    return redirect(url_for("home_page"))
 
-@app.route('/staff')
+
+@app.route("/staff")
 @logged_in
 def staff_page():
-    return render_template('staff.html', user=user)
+    return render_template("staff.html", user=user)
 
-@app.route('/reception')
+
+@app.route("/reception")
 @logged_in
 def hospital_page():
-    return render_template('reception.html', user=user)
+    return render_template("reception.html", user=user)
 
-@app.route('/doctor', methods=["GET", "POST"])
+
+@app.route("/doctor", methods=["GET", "POST"])
 @logged_in
 def doctor_page():
     stt_form = STTForm()
-    text=None
+    text = None
     if stt_form.validate_on_submit():
-        text = convert_speech_to_text('recorded/recorded-audio.wav')
-    return render_template('doctor.html', user=user, stt_form=stt_form, text=text)
+        text = convert_speech_to_text("recorded/recorded-audio.wav")
+    return render_template("doctor.html", user=user, stt_form=stt_form, text=text)
 
-@app.route("/predict", methods=["GET", "POST"])
+
+@app.route("/prediction", methods=["GET", "POST"])
 def disease_prediction():
     form = DiseaseDetailsForm(request.form)
     if request.method == "POST":
         print("Form:", request.form)
         print("Form Submitted")
         # if form.validate_on_submit():
-        selected_symptoms = request.form.getlist("symptomp_list")  # Use getlist to handle multiple selections
+
+        selected_symptoms = request.form.getlist(
+            "symptomp_list"
+        )  # Use getlist to handle multiple selections
+        print(selected_symptoms)
         input_symptoms_str = ",".join(selected_symptoms)
         result = predict_disease(input_symptoms_str)
 
@@ -187,42 +204,54 @@ def disease_prediction():
         else:
             print("Prediction Failed")
             result = "Prediction Failed"
-        return render_template("prediction.html", form=form, result=unique_values, user=user)
+        return render_template(
+            "prediction.html", form=form, result=unique_values, user=user
+        )
         # else:
         #     print("Form Validation Failed")  # Debugging message
 
     return render_template("prediction.html", form=form, user=user)
 
 
-@app.route('/patient')
+@app.route("/patient")
 @logged_in
 def patient_page():
-    return render_template('patient.html', user=user)
+    return render_template("patient.html", user=user)
 
-@app.route('/pharmacy')
+
+@app.route("/pharmacy")
 @logged_in
 def pharmacy_page():
-    return render_template('pharmacy.html', user=user)
+    return render_template("pharmacy.html", user=user)
 
-@app.route('/camera')
+
+@app.route("/camera")
 def camera_page():
-    return render_template('camera.html', user=user)
+    return render_template("camera.html", user=user)
 
-@app.route('/process_image', methods=['POST'])
+
+@app.route("/about-us")
+def about_us_page():
+    return render_template("about.html", user=user)
+
+
+@app.route("/process_image", methods=["POST"])
 def process_image():
     data = request.json
-    image_data = data['image'].split(',')[1]  # Extract image data from base64 format
+    image_data = data["image"].split(",")[1]  # Extract image data from base64 format
 
     # You can save the image data as a file here if needed
     # For now, we'll just return a sample text
     sample_text = "Hello, World!"
 
-    return jsonify({'text': sample_text})
+    return jsonify({"text": sample_text})
 
-@app.route('/not_found')
+
+@app.route("/not_found")
 @app.errorhandler(404)
 def not_found(e):
-    return render_template('not_found.html')
+    return render_template("not_found.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
