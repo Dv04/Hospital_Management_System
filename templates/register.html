@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
-
+{% import "bootstrap/wtf.html" as wtf %} 
 
 {% block title %}Register{% endblock title %}
 
 {% block body %}
 
+<div class="col-lg-8 col-md-10 mb-5 mx-auto ">
+    <h2 >Sign In </h2>
+    {{ wtf.quick_form(register_form, novalidate=True, button_map={"submit": "primary"}) }}
+    <p class="d-flex justify-content-center mt-1">Already Registered?&nbsp;&nbsp;<a href="{{ url_for('login_page') }}"> Sign In</a></p>
+  
+  </div>
+
+{% endblock body %}
 <div class="conatiner-fluid form-signin">
     <div id="intro" class="bg-image shadow-2-strong">
             <div class="mt-1 px-2 py-5 mb-5">
@@ -197,5 +205,3 @@
         </div>
     </div>
 </div>
-
-{% endblock body %}

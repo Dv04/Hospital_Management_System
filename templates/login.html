@@ -1,75 +1,83 @@
 {% extends 'base.html' %}
-
+{% import "bootstrap/wtf.html" as wtf %} 
 
 {% block title %}Login{% endblock title %}
 
 {% block body %}
-
-<div class="mt-2 px-2 py-5 mb-5">
-    <div class="col-12 col-sm-8 col-md-6 mx-auto">
-        <div class="card border-3 shadow">
-            <div class="card-body">
-                <div class="col-12 col-sm-8 col-md-6 mx-auto">
-                    <form class="needs-validation" action="{{url_for("home_page")}}">
-                        <div class="mt-5 px-5 py-5 mx-auto">
-                            <h1 class="text-center" style="color: #465A99;">Sign in</h1>
-
-                            <br>
-                            <div class="col-12 mt-2">
-                                <label for="user_type" class="form-label fw-semibold">User Type:</label>
-                                <select class="form-select" id="user_type" name="user_type">
-                                    <option value="Doctor">Doctor</option>
-                                    <option value="Patient">Patient</option>
-                                    <option value="Pharmacist">Pharmacist</option>
-                                    <option value="Receptionist">Receptionist</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please select your user type.
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-12 mt-2">
-                                <label for="username" class="form-label fw-semibold">Username:</label>
-                                <input type="text" class="form-control" id="username" placeholder="Username" name="username">
-                                <div class="invalid-feedback">
-                                    Please enter a valid email address for shipping updates.
-                                </div>
-                            </div>
-                            <br>
-                            <div class="col-12">
-                                <label for="pass_word" class="form-label fw-semibold">Password:</label>
-                                <div class="input-group has-validation">
-                                    <input class="form-control" type="password" placeholder="Password"
-                                        id="pass_word" name="pass_word">
-                                    <div class="invalid-feedback">
-                                        Your password is required.
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="text-center mt-2">
-                                <button class="btn btn-primary" type="submit">Login</button>
-                                <br>
-                                <p class="lead d-inline-flex">Don't have an Account ?&nbsp;&nbsp;
-                                    <a class="link-primary nav-link d-inline-flex" style="color:#1c8adb;"
-                                        href="/register">Sign Up</a>
-                                </p>
-                                <div class="checkbox mb-3">
-                                    <div class="form-check d-inline-flex">
-                                        <input class="form-check-input d-inline-flex fs-5" type="checkbox" value=""
-                                            id="flexCheckDefault">
-                                        <label class="form-check-label lead fs-5 ms-2" for="flexCheckDefault">
-                                            Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% endblock body %}
+<div class="col-lg-8 col-md-10 mb-5 mx-auto ">
+    <h2 >Sign In </h2>
+    {{ wtf.quick_form(login_form, novalidate=True, button_map={"submit": "primary"}) }}
+    <p class="d-flex justify-content-center mt-1">Yet to Register?&nbsp;&nbsp;<a href="{{ url_for('register_page') }}"> Sign Up</a></p>
+  
+  </div>
+  
+  {% endblock body %}
+  
+  <!--
+  <div class="mt-2 px-2 py-5 mb-5">
+      <div class="col-12 col-sm-8 col-md-6 mx-auto">
+          <div class="card border-3 shadow">
+              <div class="card-body">
+                  <div class="col-12 col-sm-8 col-md-6 mx-auto">
+                      <form class="needs-validation" action="{{url_for("home_page")}}">
+                          <div class="mt-5 px-5 py-5 mx-auto">
+                              <h1 class="text-center" style="color: #465A99;">Sign in</h1>
+  
+                              <br>
+                              <div class="col-12 mt-2">
+                                  <label for="user_type" class="form-label fw-semibold">User Type:</label>
+                                  <select class="form-select" id="user_type" name="user_type">
+                                      <option value="Doctor">Doctor</option>
+                                      <option value="Patient">Patient</option>
+                                      <option value="Pharmacist">Pharmacist</option>
+                                      <option value="Receptionist">Receptionist</option>
+                                  </select>
+                                  <div class="invalid-feedback">
+                                      Please select your user type.
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="col-12 mt-2">
+                                  <label for="username" class="form-label fw-semibold">Username:</label>
+                                  <input type="text" class="form-control" id="username" placeholder="Username" name="username">
+                                  <div class="invalid-feedback">
+                                      Please enter a valid email address for shipping updates.
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="col-12">
+                                  <label for="pass_word" class="form-label fw-semibold">Password:</label>
+                                  <div class="input-group has-validation">
+                                      <input class="form-control" type="password" placeholder="Password"
+                                          id="pass_word" name="pass_word">
+                                      <div class="invalid-feedback">
+                                          Your password is required.
+                                      </div>
+                                  </div>
+                              </div>
+                              <br>
+                              <div class="text-center mt-2">
+                                  <button class="btn btn-primary" type="submit">Login</button>
+                                  <br>
+                                  <p class="lead d-inline-flex">Don't have an Account ?&nbsp;&nbsp;
+                                      <a class="link-primary nav-link d-inline-flex" style="color:#1c8adb;"
+                                          href="/register">Sign Up</a>
+                                  </p>
+                                  <div class="checkbox mb-3">
+                                      <div class="form-check d-inline-flex">
+                                          <input class="form-check-input d-inline-flex fs-5" type="checkbox" value=""
+                                              id="flexCheckDefault">
+                                          <label class="form-check-label lead fs-5 ms-2" for="flexCheckDefault">
+                                              Remember Me
+                                          </label>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  -->
