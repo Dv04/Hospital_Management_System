@@ -4,20 +4,27 @@
 
 {% block body %}
 <div id="medicines">
-    {% for medicine in medicines %}
     <div class="container">
         <div class="card" style="width: 18rem">
           <div class="card-body">
-            <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Medicine Name</h5>
+            <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Calpol</h5>
             <p class="card-text">
-                Medicine Description
+                It is an analgesic and antipyretic drug that is used to temporarily relieve mild-to-moderate pain and fever. It is commonly included as an ingredient in cold and flu medications and is also used on its own.
             </p>
           </div>
         </div>
       </div>
-    {% endfor %}
 </div>
 <div id="prescription">
-    <p>A search bar to search for the patient prescription on name basis</p>
+  <div class="container">
+  <div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Dev Sanghvi</h5>
+      <p class="card-text">
+          Prescription: 2 Dolo Paracetamol, 10ml Cough Syrup
+      </p>
+    </div>
+  </div>
+</div>
 </div>
 {% endblock body %}
