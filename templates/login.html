@@ -16,7 +16,7 @@
         width: 400px;
     }
     
-    .sign-in-box h2 {
+    .sign-up-box h2 {
         font-size: 24px;
         margin-bottom: 20px;
         color: #333;
@@ -37,21 +37,29 @@
     input {
         margin-bottom: 10px;
     }
+
     #role {
         margin-bottom: 10px;
     }
+
     #gender {
         margin-bottom: 10px;
     }
+
     #submit {
         margin-top: 25px;
         width: 100%;
+    }
+
+    .footer {
+        margin-top: 90px;
+        overflow-y: auto;
     }
 </style>
 
 <div class="col-lg-8 col-md-10 mb-5 mx-auto sign-up-box">
     <div class="sign-up-title">
-        <h2 >Sign In </h2>
+        <h2 >Sign In</h2>
     </div>
 
     {{ wtf.quick_form(login_form, novalidate=True, button_map={"submit": "primary"}) }}
