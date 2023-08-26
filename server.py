@@ -2,7 +2,13 @@ from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from backend.mongoConnect import *
+
+from flask import Flask, request, jsonify
+from PIL import Image
+import io
+
 
 app = Flask(__name__, static_folder='static')
 Bootstrap(app=app)
@@ -132,6 +138,21 @@ def patient_page():
 @app.route('/pharmacy')
 def pharmacy_page():
     return render_template('pharmacy.html', user=user)
+
+@app.route('/camera')
+def camera_page():
+    return render_template('camera.html', user=user)
+
+@app.route('/process_image', methods=['POST'])
+def process_image():
+    data = request.json
+    image_data = data['image'].split(',')[1]  # Extract image data from base64 format
+
+    # You can save the image data as a file here if needed
+    # For now, we'll just return a sample text
+    sample_text = "Hello, World!"
+
+    return jsonify({'text': sample_text})
 
 @app.route('/not_found')
 @app.errorhandler(404)
