@@ -184,6 +184,7 @@ def disease_prediction():
         print("Form:", request.form)
         print("Form Submitted")
         # if form.validate_on_submit():
+
         selected_symptoms = request.form.getlist(
             "symptomp_list"
         )  # Use getlist to handle multiple selections
