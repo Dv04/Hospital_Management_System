@@ -182,18 +182,18 @@
       $("#case-history, #book-appointment").hide();
 
       // Show the selected section
-      // if(user.role == "reception") {
-      //     $('#new-patient').show();
-      // }
-      // if(user.role == "doctor") {
-      //     $('#predictive-model').show();
-      // }
-      // if(user.role != "staff") {
-      //     $('#employee').show();
-      // }
-      // if(user.role == "patient") {
-      //     $('#case-history').show();
-      // }
+      if(user.role == "reception") {
+          $('#new-patient').show();
+      }
+      if(user.role == "doctor") {
+          $('#predictive-model').show();
+      }
+      if(user.role != "staff") {
+          $('#employee').show();
+      }
+      if(user.role == "patient") {
+          $('#case-history').show();
+      }
 
       // $('#new-patient').show();
       // $('#predictive-model').show();
