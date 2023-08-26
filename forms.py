@@ -1,11 +1,16 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, SelectField, IntegerField, TextAreaField, RadioField
 from wtforms.validators import DataRequired
+from Disease import list_column_names
 
+column_names = list_column_names("dataset/Training.csv")
 class DiseaseDetailsForm(FlaskForm):
-    pass
+    name = StringField("Name", validators=[DataRequired()])
+    disease_list = SelectField("Disease", choices=[(column_name, column_name) for column_name in column_names])
+    submit = SubmitField("Submit")
 
 class PatientDetailsForm(FlaskForm):
+    
     pass
 
 class LoginUserForm(FlaskForm):
