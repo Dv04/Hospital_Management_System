@@ -1,7 +1,8 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm
 from werkzeug.security import generate_password_hash, check_password_hash
+from backend.mongoConnect import *
 
 app = Flask(__name__, static_folder='static')
 Bootstrap(app=app)
@@ -29,18 +30,36 @@ def login_page():
     user_login = LoginUserForm()
     if user_login.validate_on_submit():
         email = user_login.email.data
-        role = user.role.data
-        if email == "Get the email in database" and role == "Get the role in database":
-            hashed_password = "Get the hashed password for the email"
-            password = check_password_hash(
-                pwhash= hashed_password,
-                password=user_login.password.data
-            )
+        role = user_login.role.data
+        emailCheck = db['users'].find_one({'email' : email})
+        if(emailCheck):
+            hashPassword = emailCheck['password']
+            
+            password = generate_password_hash(
+                            user_login.password.data,
+                            method='pbkdf2:sha256',
+                            salt_length=8
+                        )
+            
+            if email == emailCheck['email'] and role == emailCheck['role']:
+                password = check_password_hash(
+                    pwhash=hashPassword,
+                    password=password
+                )
 
-            user.email = email
-            user.role = role
-            user.is_active = True
-            return redirect(url_for(f"{role}_page"), user=user)
+                user.email = email
+                user.role = role
+                user.is_active = True
+                print("Log in successful")
+                return redirect(url_for(f"{role}_page", user=user))
+            
+            else:
+                print("User does not exist")
+                return redirect(url_for('register_page'))
+            
+        else:
+            print("Wrong Email")
+            return redirect(url_for('login_page'))
     return render_template('login.html', login_form=user_login, user=user)
 
 @app.route('/register', methods=["GET", "POST"])
@@ -63,13 +82,33 @@ def register_page():
         user.role = role
         user.is_active = True
 
-        print(email)
-        print(name)
-        print(password)
-        print(role)
-        print(phone_no)
-        print(gender)
-        print(address)
+        data = {
+            "role": role,
+            "email": email,
+            "name": name,
+            "password": password,
+            "phone_no": phone_no,
+            "gender": gender,
+            "address": address
+        }
+
+        if request.method == 'POST':
+            emailCheck = db['users'].find_one({'email' : email})
+            print("Email cehck:", emailCheck)
+
+            if(emailCheck):
+                print("Email already exists")
+                return redirect(url_for('register_page'))
+            
+            result = insert('users', data)
+            
+            if(result):
+                print("Inserted Successfully")
+                print(result)
+                return redirect(url_for(f"home_page", user=user))
+            else:
+                print("Insertion Failed")
+                print(result)
 
         return redirect(url_for(f"{role}_page", user=user))
     return render_template('register.html', register_form=register_form, user=user)
