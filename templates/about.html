@@ -1,5 +1,123 @@
-{% extends 'base.html' %}
+    {% extends 'base.html' %}
 
-{% block title %}About Us{% endblock title %}
+    {% block title %}About Us{% endblock title %}
 
-{% block body %}{% endblock body %}
+    {% block body %}
+    <!-- <style>
+        .about-us {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 100px;
+        }
+    </style>
+    <div class="about-us">
+        About Us
+    </div> -->
+
+    <style>
+        /* Define some global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .about-us {
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #b2b0b0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 20px 30px 5px 6px #ccc;
+        }
+
+        .info-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background-color: #fff; /* Added background color to the section */
+            padding: 20px; /* Added padding to the section */
+            border-radius: 10px; /* Added border radius to the section */
+        }
+
+        .info-left {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .info-right {
+            flex: 1;
+            margin-left: 20px; /* Increased spacing between image and paragraph */
+        }
+
+        .info-left:first-child {
+            margin-right: 50px;
+            text-align: right;
+        }
+
+        .info-left:last-child {
+            margin-left: -75px;
+        }
+
+        /* Style headings */
+        h1, h2 {
+            color: #333;
+        }
+
+        /* Style paragraphs */
+        p {
+            line-height: 1.6;
+        }
+
+        /* Style images */
+        img {
+            width: 450px;
+            height: 300px;
+            border-radius: 10px; /* Added border radius to the images */
+        }
+
+        .footer {
+            margin-top: 90px;
+        }
+    </style>
+
+    <div class="about-us">
+        <h1>About Us</h1>
+    </div>
+
+    <div class="content">
+        <section class="info-section">
+            <div class="info-left">
+                <h2>Introduction</h2>
+                <p>In the dynamic healthcare landscape, efficient information and resource management are vital for quality patient care. This project introduces a state healthcare-specific Health Management Information System (HMIS). This innovative HMIS centralizes patient data, employs AI/ML, and caters to various user roles, aiming to transform healthcare management.</p>
+            </div>
+            <div class="info-right">
+                <img src="./../static/img/about-us-1.jpg" alt="About us first">
+            </div>
+        </section>
+
+        <!-- Add more sections following the same structure -->
+
+        <section class="info-section">
+            <div class="info-right">
+                <img src="./../static/img/about-us-2.jpg" alt="About us second">
+            </div>
+            <div class="info-left">
+                <h2>Problem Statement</h2>
+                <p>State healthcare facilities encounter issues with HMIS adoption, including low rates, fragmented data, inefficient record-keeping, limited predictive abilities, patient disengagement, and resource management. This project seeks to overcome these barriers and facilitate HMIS adoption by healthcare professionals.</p>
+            </div>
+        </section>
+    </div>
+
+    {% endblock body %}

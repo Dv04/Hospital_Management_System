@@ -180,6 +180,10 @@ def pharmacy_page():
 def camera_page():
     return render_template('camera.html', user=user)
 
+@app.route('/about-us')
+def about_us_page():
+    return render_template('about.html', user=user)
+
 @app.route('/process_image', methods=['POST'])
 def process_image():
     data = request.json
