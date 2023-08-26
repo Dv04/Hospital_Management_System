@@ -1,4 +1,6 @@
 # 0xAI
+Problem Statement: Create a technology to improve adoption by doctors, nurses and other health/administrative workers in state healthcare facilities to use the HMIS software.
+
 
 First of all please install the requirements using
 
