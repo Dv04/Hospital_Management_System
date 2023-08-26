@@ -54,10 +54,10 @@
                         <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">Hospitals</a>
+                        <a class="nav-link" aria-current="page" href="{{ url_for('staff_page') }}">Hospitals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">About Us</a>
+                        <a class="nav-link" aria-current="page" href="{{ url_for('about_us_page') }}">About Us</a>
                     </li>
                     {% if user.role == "reception" %}
                     <li class="nav-item" style="cursor: pointer;">
