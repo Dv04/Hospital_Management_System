@@ -5,10 +5,10 @@ def list_column_names(csv_file_path):
         reader = csv.DictReader(csvfile)
         return reader.fieldnames
 
-csv_file_path = "dataset/Training.csv"
-column_names = list_column_names(csv_file_path)
+if __name__ == '__main__':
+    csv_file_path = "dataset/Training.csv"
+    column_names = list_column_names(csv_file_path)
 
-print("Column names:")
-for name in column_names:
-    print(name)
-
+    print("Column names:")
+    for name in column_names:
+        print(name)
