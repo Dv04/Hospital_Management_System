@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %} 
+
+{% block title %}Prediction{% endblock title %}
+
+<style>
+    /* CSS for the form */
+    form {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        max-width: 400px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    select {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* CSS for the result div */
+    #result {
+        margin: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        max-width: 400px;
+    }
+</style>
+
+{% block body %}
+
+<h1>Disease Predictor</h1>
+<form method="POST" action="{{url_for('disease_prediction')}}">
+    {{ form.hidden_tag() }}
+    <label for="symptoms">Select Symptoms:</label>
+    {{ form.symptomp_list() }}
+    <br>
+    <button type="submit">Predict Disease</button>
+</form>
+<div id="result">
+    {{result}}
+</div>
+
+{% endblock body %}
+
+
