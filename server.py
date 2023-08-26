@@ -1,4 +1,5 @@
 
+from functools import wraps
 import os
 from urllib import request
 
@@ -29,6 +30,15 @@ class User:
     email = ""
     role = ""
     is_active = False
+
+def logged_in(function):
+    @wraps(function)
+    def decorated_function(*args, **kwargs):
+        if user.is_active:
+            return function(*args, **kwargs)
+        else:
+            return redirect(url_for('login_page'))
+    return decorated_function
 
 logged_in = False
 user = User()
@@ -74,6 +84,7 @@ def login_page():
                 return redirect(url_for('register_page'))
             
         else:
+            flash("This Email is not registered. Please try again!")
             print("Wrong Email")
             return redirect(url_for('login_page'))
     return render_template('login.html', login_form=user_login, user=user)
@@ -130,14 +141,17 @@ def register_page():
     return render_template('register.html', register_form=register_form, user=user)
 
 @app.route('/staff')
+@logged_in
 def staff_page():
     return render_template('staff.html', user=user)
 
 @app.route('/reception')
+@logged_in
 def hospital_page():
     return render_template('reception.html', user=user)
 
 @app.route('/doctor', methods=["GET", "POST"])
+@logged_in
 def doctor_page():
     stt_form = STTForm()
     text=None
@@ -146,10 +160,12 @@ def doctor_page():
     return render_template('doctor.html', user=user, stt_form=stt_form, text=text)
 
 @app.route('/patient')
+@logged_in
 def patient_page():
     return render_template('patient.html', user=user)
 
 @app.route('/pharmacy')
+@logged_in
 def pharmacy_page():
     return render_template('pharmacy.html', user=user)
 
