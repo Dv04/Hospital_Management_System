@@ -36,3 +36,13 @@ class RegisterUserForm(FlaskForm):
     gender = SelectField("Gender", validators=[DataRequired()], choices=[("male", "Male"), ("female", "Female"), ("other", "Other")])
     address = TextAreaField("Address", validators=[DataRequired()])
     submit = SubmitField("Register")
+
+# class AddMedicineForm(FlaskForm):
+#     name = StringField("Name", validators=[DataRequired()])
+#     description = TextAreaField("Description", validators=[DataRequired()])
+#     price = IntegerField("Price", validators=[DataRequired()])
+#     quantity = IntegerField("Quantity", validators=[DataRequired()])
+#     submit = SubmitField("Add")
+
+class STTForm(FlaskForm):
+    submit = SubmitField("Submit")

@@ -1,9 +1,19 @@
+
+import os
+from urllib import request
+
 from flask import Flask, render_template, redirect, url_for, request, flash
+
 from flask_bootstrap import Bootstrap
-from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm
+import requests
+from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm, STTForm
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from speechToText import convert_speech_to_text
+
+
 from backend.mongoConnect import *
+
 
 from flask import Flask, request, jsonify
 from PIL import Image
@@ -127,9 +137,13 @@ def staff_page():
 def hospital_page():
     return render_template('reception.html', user=user)
 
-@app.route('/doctor')
+@app.route('/doctor', methods=["GET", "POST"])
 def doctor_page():
-    return render_template('doctor.html', user=user)
+    stt_form = STTForm()
+    text=None
+    if stt_form.validate_on_submit():
+        text = convert_speech_to_text('recorded/recorded-audio.wav')
+    return render_template('doctor.html', user=user, stt_form=stt_form, text=text)
 
 @app.route('/patient')
 def patient_page():

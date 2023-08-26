@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block title %}Doctor{% endblock title %} {% block
+{% extends 'base.html' %} {% import "bootstrap/wtf.html" as wtf %}    {% block title %}Doctor{% endblock title %} {% block
 body %}
 
 <style>
@@ -52,9 +52,17 @@ body %}
         </div>
       </div>
 </div>
+
 <div id="speech-to-text">
     <div>
       <p class="heading-speech-to-text">Please click the icon before starting the patient's councelling:</p> <br /><br />
+
+      {{ text }}
+
+        <div class="col-lg-8 col-md-10 mb-5 mx-auto ">
+          {{ wtf.quick_form(stt_form, novalidate=True, button_map={"submit": "primary"}) }}
+        </div>
+
       <img id="mic-off" src="./../static/img/mic-off.png" alt="mic input off" onclick="startRecording()"/>
       <img id="mic-on" src="./../static//img/mic-on.png" alt="mic input on" style="display: none;" onclick="stopRecording()"/>
 
@@ -67,6 +75,7 @@ body %}
     <!-- <div>
       <div>Predicted text: <span id="predicted-text"></span></div>
     </div> -->
+
 </div>
 <div id="ocr">
     <p>OCR</p>
@@ -94,7 +103,7 @@ body %}
           };
 
           mediaRecorder.onstop = () => {
-              const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+              const audioBlob = new Blob(audioChunks, { type: 'audio' });
               const audioUrl = URL.createObjectURL(audioBlob);
 
               const a = document.createElement('a');
@@ -112,7 +121,6 @@ body %}
 
               micOnText.textContent = 'Audio recorded successfully.';
               micOnText.style.display = 'block';
-
           };
 
           mediaRecorder.start();
