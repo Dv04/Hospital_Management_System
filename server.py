@@ -40,7 +40,6 @@ def logged_in(function):
             return redirect(url_for('login_page'))
     return decorated_function
 
-logged_in = False
 user = User()
 
 @app.route('/')
