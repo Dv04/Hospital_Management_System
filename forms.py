@@ -15,7 +15,6 @@ column_names = list_column_names("dataset/Training.csv")
 class DiseaseDetailsForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     symptomp_list = SelectMultipleField("Disease", choices=[(column_name, column_name) for column_name in column_names])
-    print(symptomp_list)
     submit = SubmitField("Submit")
 
 class PatientDetailsForm(FlaskForm):

@@ -172,7 +172,6 @@ def disease_prediction():
         print("Form Submitted")
         # if form.validate_on_submit():
         selected_symptoms = request.form.getlist("symptomp_list")  # Use getlist to handle multiple selections
-        print(selected_symptoms)
         input_symptoms_str = ",".join(selected_symptoms)
         result = predict_disease(input_symptoms_str)
 
@@ -191,7 +190,7 @@ def disease_prediction():
         return render_template("prediction.html", form=form, result=unique_values, user=user)
         # else:
         #     print("Form Validation Failed")  # Debugging message
-        
+
     return render_template("prediction.html", form=form, user=user)
 
 
