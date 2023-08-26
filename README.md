@@ -39,3 +39,12 @@ Role: Staff
 
 
 The Backend user data is stored in Hospital_users.json
+
+URLS:
+- /
+- /about
+- /doctor
+- /staff
+- /patient
+- /reception
+- /pharmacy
