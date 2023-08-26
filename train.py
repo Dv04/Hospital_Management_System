@@ -26,7 +26,6 @@ temp_df = pd.DataFrame({
 plt.figure(figsize = (18,8))
 sns.barplot(x = "Disease", y = "Counts", data = temp_df)
 plt.xticks(rotation=90)
-plt.show()
 
 # Encoding the target value into numerical
 # value using LabelEncoder
@@ -77,7 +76,6 @@ cf_matrix = confusion_matrix(y_test, preds)
 plt.figure(figsize=(12,8))
 sns.heatmap(cf_matrix, annot=True)
 plt.title("Confusion Matrix for SVM Classifier on Test Data")
-plt.show()
 
 # Training and testing Naive Bayes Classifier
 nb_model = GaussianNB()
@@ -92,7 +90,6 @@ cf_matrix = confusion_matrix(y_test, preds)
 plt.figure(figsize=(12,8))
 sns.heatmap(cf_matrix, annot=True)
 plt.title("Confusion Matrix for Naive Bayes Classifier on Test Data")
-plt.show()
 
 # Training and testing Random Forest Classifier
 rf_model = RandomForestClassifier(random_state=18)
@@ -108,7 +105,6 @@ cf_matrix = confusion_matrix(y_test, preds)
 plt.figure(figsize=(12,8))
 sns.heatmap(cf_matrix, annot=True)
 plt.title("Confusion Matrix for Random Forest Classifier on Test Data")
-plt.show()
 
 # Training the models on whole data
 final_svm_model = SVC()
@@ -141,7 +137,6 @@ plt.figure(figsize=(12,8))
 
 sns.heatmap(cf_matrix, annot = True)
 plt.title("Confusion Matrix for Combined Model on Test Dataset")
-plt.show()
 
 symptoms = X.columns.values
 
@@ -189,5 +184,5 @@ def predictDisease(symptoms):
 	return predictions
 
 # Testing the function
-print(predictDisease("Itching,Skin Rash,Nodal Skin Eruptions"))
+print(predictDisease("Blister,Red Sore Around Nose,Yellow Crust Ooze"))
 
