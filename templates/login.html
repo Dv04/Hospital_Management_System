@@ -5,6 +5,7 @@
 
 {% block body %}
 
+
 <style>
     .sign-up-box {
         margin-top: 25px;
@@ -52,6 +53,7 @@
     <div class="sign-up-title">
         <h2 >Sign In </h2>
     </div>
+
     {{ wtf.quick_form(login_form, novalidate=True, button_map={"submit": "primary"}) }}
     <p class="d-flex justify-content-center mt-1">Yet to Register?&nbsp;&nbsp;<a href="{{ url_for('register_page') }}"> Sign Up</a></p>
   
