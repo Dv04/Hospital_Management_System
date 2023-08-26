@@ -19,7 +19,7 @@ from speechToText import convert_speech_to_text
 from predict_disease import predict_disease
 
 from backend.mongoConnect import *
-
+from model import *
 
 from flask import Flask, request, jsonify
 from PIL import Image
@@ -240,9 +240,7 @@ def process_image():
     data = request.json
     image_data = data["image"].split(",")[1]  # Extract image data from base64 format
 
-    # You can save the image data as a file here if needed
-    # For now, we'll just return a sample text
-    sample_text = "Hello, World!"
+    sample_text = ocr_core(image_data)
 
     return jsonify({"text": sample_text})
 
