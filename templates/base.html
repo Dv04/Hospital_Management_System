@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {% block title %}{% endblock title %} </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-     <!-- Add your CSS and other head elements here -->
-     <style>
-        /* Define a CSS class for cursor: pointer */
-        .pointer-link {
-            cursor: pointer;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock title %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <!-- Add your CSS and other head elements here -->
+    <style>
+      .pointer-link {
+        cursor: pointer;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .content {
+        flex: 1;
+        /* Add any additional styling for your content container */
+        padding-bottom: 5rem; /* Adjust as needed to provide space for the footer */
+      }
+
+      .footer {
+        flex-shrink: 0;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        position: sticky;
+        bottom: 0;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-transparent">
         <div class="container-fluid">
@@ -96,87 +125,83 @@
                 {% endif %}
             </div>
         </div>
+      </div>
     </nav>
 
-    
     <!-- body -->
-    {% block body %}
-    
-    {% endblock body %}
-
+    {% block body %} {% endblock body %}
 
     <!-- Footer -->
-    
-    <div class="d-flex flex-column flex-sm-row justify-content-between p-4 mt-4 border-top">
-        <p>&copy; 2023 Adani University</p>
-        <h6>Designed by OxAI</h6>
-        </div>
-    </footer>
+    <div class="footer">
+      <p>&copy; 2023 HMIS</p>
+      <h6>Designed by OxAI</h6>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Include jQuery for easier DOM manipulation -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- JavaScript for showing/hiding sections -->
     <script>
-        function showReceptionSection(sectionId) {
-            // Hide all sections
-            $('#new-patient, #existing-patient, #appointments').hide();
-            
-            // Show the selected section
-            $('#' + sectionId).show();
-        }
-        function showDoctorSection(sectionId) {
-            // Hide all sections
-            $('#predictive-model, #speech-to-text, #ocr, #disease-form').hide();
-            
-            // Show the selected section
-            $('#' + sectionId).show();
-        }
-        function showStaffSection(sectionId) {
-            // Hide all sections
-            $('#employee, #equipment, #operation-room').hide();
-            
-            // Show the selected section
-            $('#' + sectionId).show();
-        }
-        function showPatientSection(sectionId) {
-            // Hide all sections
-            $('#case-history, #book-appointment').hide();
-            
-            // Show the selected section
-            $('#' + sectionId).show();
-        }
-
+      function showReceptionSection(sectionId) {
         // Hide all sections
-        $('#new-patient, #existing-patient, #appointments').hide();
-        $('#predictive-model, #speech-to-text, #ocr, #disease-form').hide();
-        $('#employee, #equipment, #operation-room').hide();
-        $('#case-history, #book-appointment').hide();
+        $("#new-patient, #existing-patient, #appointments").hide();
 
         // Show the selected section
-        // if(user.role == "reception") {
-        //     $('#new-patient').show();
-        // }
-        // if(user.role == "doctor") {
-        //     $('#predictive-model').show();
-        // }
-        // if(user.role != "staff") {
-        //     $('#employee').show();
-        // }
-        // if(user.role == "patient") {
-        //     $('#case-history').show();
-        // }
+        $("#" + sectionId).show();
+      }
+      function showDoctorSection(sectionId) {
+        // Hide all sections
+        $("#predictive-model, #speech-to-text, #ocr, #disease-form").hide();
 
-        // $('#new-patient').show();
-        // $('#predictive-model').show();
-        // $('#employee').show();
-        // $('#case-history').show();
+        // Show the selected section
+        $("#" + sectionId).show();
+      }
+      function showStaffSection(sectionId) {
+        // Hide all sections
+        $("#employee, #equipment, #operation-room").hide();
 
+        // Show the selected section
+        $("#" + sectionId).show();
+      }
+      function showPatientSection(sectionId) {
+        // Hide all sections
+        $("#case-history, #book-appointment").hide();
+
+        // Show the selected section
+        $("#" + sectionId).show();
+      }
+
+      // Hide all sections
+      $("#new-patient, #existing-patient, #appointments").hide();
+      $("#predictive-model, #speech-to-text, #ocr, #disease-form").hide();
+      $("#employee, #equipment, #operation-room").hide();
+      $("#case-history, #book-appointment").hide();
+
+      // Show the selected section
+      // if(user.role == "reception") {
+      //     $('#new-patient').show();
+      // }
+      // if(user.role == "doctor") {
+      //     $('#predictive-model').show();
+      // }
+      // if(user.role != "staff") {
+      //     $('#employee').show();
+      // }
+      // if(user.role == "patient") {
+      //     $('#case-history').show();
+      // }
+
+      // $('#new-patient').show();
+      // $('#predictive-model').show();
+      // $('#employee').show();
+      // $('#case-history').show();
     </script>
 
     {% block scripts %}{% endblock scripts %}
-</body>
+  </body>
 </html>
