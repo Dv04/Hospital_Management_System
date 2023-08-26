@@ -142,6 +142,8 @@ def register_page():
 @app.route('/sign-out')
 @logged_in
 def sign_out_page():
+    user.email = ""
+    user.role = ""
     user.is_active = False
     return redirect( url_for('home_page') )
 
