@@ -26,8 +26,7 @@
 
       .content {
         flex: 1;
-        /* Add any additional styling for your content container */
-        padding-bottom: 5rem; /* Adjust as needed to provide space for the footer */
+        padding: 1rem; /* Add padding as needed */
       }
 
       .footer {
@@ -37,177 +36,91 @@
         text-align: center;
         width: 100%;
         box-sizing: border-box;
-        position: sticky;
-        bottom: 0;
       }
     </style>
   </head>
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg bg-transparent">
-      <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="{{ url_for('home_page') }}"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="{{ url_for('home_page') }}"
-                >Hospitals</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="{{ url_for('home_page') }}"
-                >About Us</a
-              >
-            </li>
-            {% if user.role == "reception" %}
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showReceptionSection('new-patient')"
-                >New Patient</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showReceptionSection('existing-patient')"
-                >Existing Patient</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showReceptionSection('appointments')"
-                >Appointments</a
-              >
-            </li>
-            {% endif %} {% if user.role == "doctor" %}
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showDoctorSection('predictive-model')"
-                >AI-ML</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showDoctorSection('speech-to-text')"
-                >Speech-To-Text</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showDoctorSection('ocr')"
-                >Text Scanner</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showDoctorSection('disease-form')"
-                >Form</a
-              >
-            </li>
-            {% endif %} {% if user.role == "staff" %}
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showStaffSection('employee')"
-                >Employee</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showStaffSection('equipment')"
-                >Equipment</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showStaffSection('operation-room')"
-                >Operation Room</a
-              >
-            </li>
-            {% endif %} {% if user.role == "patient" %}
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showPatientSection('case-history')"
-                >History</a
-              >
-            </li>
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                onclick="showPatientSection('book-appointment')"
-                >Appointment Booking</a
-              >
-            </li>
-            {% endif %} {% if user.login %}
-            <li class="nav-item" style="cursor: pointer">
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="{{ url_for('home_page') }}"
-                >Log Out</a
-              >
-            </li>
-            {% endif %}
-          </ul>
-          <form class="d-flex mx-auto">
-            <a
-              class="btn btn-primary ms-5 me-2 rounded-pill fw-bold"
-              type="submit"
-              href="/login"
-              >Log in</a
-            >
-            <a
-              class="btn btn-primary me-0 rounded-pill fw-bold"
-              type="submit"
-              href="/register"
-              >Sign in</a
-            >
-          </form>
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto ">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">Hospitals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">About Us</a>
+                    </li>
+                    {% if user.role == "reception" %}
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showReceptionSection('new-patient')">New Patient</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showReceptionSection('existing-patient')">Existing Patient</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showReceptionSection('appointments')">Appointments</a>
+                    </li>
+                    {% endif %}
+                    {% if user.role == "doctor" %}
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('predictive-model')">AI-ML</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('speech-to-text')">Speech-To-Text</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('ocr')">Text Scanner</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('disease-form')">Form</a>
+                    </li>
+                    {% endif %}
+                    {% if user.role == "staff" %}
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showStaffSection('employee')">Employee</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showStaffSection('equipment')">Equipment</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showStaffSection('operation-room')">Operation Room</a>
+                    </li>
+                    {% endif %}
+                    {% if user.role == "patient" %}
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showPatientSection('case-history')">History</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showPatientSection('book-appointment')">Appointment Booking</a>
+                    </li>
+                    {% endif %}
+                    {% if user.login %}
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('home_page') }}">Log Out</a>
+                    </li>a
+                    {% endif %}
+                </ul>
+                {% if not user.is_active %}
+                <form class="d-flex mx-auto">
+                    <a class="btn btn-primary ms-5 me-2 rounded-pill fw-bold" type="submit" href="{{ url_for('login_page') }}">Log in</a>
+                    <a class="btn btn-primary me-0 rounded-pill fw-bold" type="submit" href="{{ url_for('register_page') }}">Sign up</a>
+                </form>
+                {% endif %}
+                {% if user.is_active %}
+                <form class="d-flex mx-auto">
+                    <a class="btn btn-primary ms-5 me-2 rounded-pill fw-bold" type="submit" href="{{ url_for('home_page') }}">Log Out</a>
+                </form>
+                {% endif %}
+            </div>
         </div>
       </div>
     </nav>
