@@ -1,64 +1,59 @@
-{% extends 'base.html' %}
-{% import "bootstrap/wtf.html" as wtf %} 
-
-{% block title %}Prediction{% endblock title %}
-
-<style>
-    /* CSS for the form */
-    form {
-        margin: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-        max-width: 400px;
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    select {
-        width: 100%;
-        padding: 5px;
-        margin-bottom: 10px;
-    }
-
-    button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    /* CSS for the result div */
-    #result {
-        margin: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        background-color: #f9f9f9;
-        max-width: 400px;
-    }
-</style>
-
-{% block body %}
+{% extends 'base.html' %} {% import "bootstrap/wtf.html" as wtf %} {% block
+title %}Prediction{% endblock title %} {% block body %}
 
 <h1>Disease Predictor</h1>
-<form method="POST" action="{{url_for('disease_prediction')}}">
-    {{ form.hidden_tag() }}
-    <label for="symptoms">Select Symptoms:</label>
-    {{ form.symptomp_list() }}
-    <br>
-    <button type="submit">Predict Disease</button>
+<!-- Inline styles for the form -->
+<form
+  method="POST"
+  action="{{url_for('disease_prediction')}}"
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    border-radius: 10px;
+  "
+>
+  {{ form.hidden_tag() }}
+  <label for="symptoms" style="font-weight: bold; margin-bottom: 10px"
+    >Select Symptoms:</label
+  >
+  {{ form.symptomp_list(style="width: 100%; padding: 10px; margin-bottom: 20px;
+  border: 1px solid #ccc; border-radius: 5px;") }}
+  <br />
+  <button
+    type="submit"
+    style="
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    "
+  >
+    Predict Disease
+  </button>
 </form>
-<div id="result">
-    {{result}}
+<!-- Inline styles for the result div -->
+<div
+  id="result"
+  style="
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: linear-gradient(to bottom, #ffffff, #f9f9f9);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    border-radius: 10px;
+  "
+>
+  {{result}}
 </div>
 
 {% endblock body %}
-
-
