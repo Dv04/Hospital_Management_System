@@ -1,12 +1,13 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
+from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm
 
 app = Flask(__name__, static_folder='static')
 Bootstrap(app=app)
 app.app_context().push()
 app.secret_key = "secret-tunnel"
 
-user = []
+user = LoginUserForm()
 
 @app.route('/')
 def home_page():
