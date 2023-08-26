@@ -30,15 +30,15 @@ def convert_speech_to_text(audio_file_path):
     
     return None
 
-if __name__ == "__main__":
-    mp3_audio_file_path = "dataset/test3.wav"  # Replace with the path to your MP3 audio file
-    wav_audio_file_path = convert_mp3_to_wav(mp3_audio_file_path)
+# if __name__ == "__main__":
+#     mp3_audio_file_path = "./../recorded/recorded-audio.wav"  # Replace with the path to your MP3 audio file
+#     wav_audio_file_path = convert_mp3_to_wav(mp3_audio_file_path)
     
-    if wav_audio_file_path:
-        print(f"Converted MP3 to WAV: {wav_audio_file_path}")
+#     if wav_audio_file_path:
+#         print(f"Converted MP3 to WAV: {wav_audio_file_path}")
         
-        result = convert_speech_to_text(wav_audio_file_path)
+#         result = convert_speech_to_text(wav_audio_file_path)
         
-        if result:
-            print("Text from audio:")
-            print(result)
+#         if result:
+#             print("Text from audio:")
+#             print(result)

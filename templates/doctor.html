@@ -1,6 +1,42 @@
 {% extends 'base.html' %} {% block title %}Doctor{% endblock title %} {% block
 body %}
 
+<style>
+  /* Style the logo */
+  .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+  }
+
+  /* Style the mic images */
+  #mic-off, #mic-on {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+  }
+
+  /* Center text in #speech-to-text */
+  #speech-to-text {
+      text-align: center;
+      margin-top: 100px;
+  }
+
+  /* Add some space below the form */
+  #disease-form {
+      margin-top: 20px;
+  }
+
+  .heading-speech-to-text {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .mic-on-listening-text {
+    display: none;
+  }
+</style>
+
 <div id="predictive-model">
     <div class="container">
         <div class="card" style="width: 18rem">
@@ -17,7 +53,20 @@ body %}
       </div>
 </div>
 <div id="speech-to-text">
-    <p>Speech To Text</p>
+    <div>
+      <p class="heading-speech-to-text">Please click the icon before starting the patient's councelling:</p> <br /><br />
+      <img id="mic-off" src="./../static/img/mic-off.png" alt="mic input off" onclick="startRecording()"/>
+      <img id="mic-on" src="./../static//img/mic-on.png" alt="mic input on" style="display: none;" onclick="stopRecording()"/>
+
+      <div class="mic-on-listening-text"><br />listening...</div>
+    </div>
+
+    <!-- <div>
+      Convert the audio to text: <button>Convert</button>
+    </div> -->
+    <!-- <div>
+      <div>Predicted text: <span id="predicted-text"></span></div>
+    </div> -->
 </div>
 <div id="ocr">
     <p>OCR</p>
@@ -25,4 +74,64 @@ body %}
 <div id="disease-form">
     <p>Form Here</p>
 </div>
+
+<script>
+  let micIsOn = false;
+  let mediaRecorder;
+  let audioChunks = [];
+
+  async function startRecording() {
+      const micOffImage = document.getElementById("mic-off");
+      const micOnImage = document.getElementById("mic-on");
+      const micOnText = document.querySelector('.mic-on-listening-text');
+
+      try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+          
+          mediaRecorder.ondataavailable = event => {
+              audioChunks.push(event.data);
+          };
+
+          mediaRecorder.onstop = () => {
+              const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+              const audioUrl = URL.createObjectURL(audioBlob);
+
+              const a = document.createElement('a');
+              a.href = audioUrl;
+              a.download = 'recorded-audio.wav';
+
+              micOffImage.style.display = "inline";
+              micOnImage.style.display = "none";
+
+                // Simulate a click event to trigger the download
+              a.click();
+
+              // Clean up by removing the anchor element
+              document.body.removeChild(a); 
+
+              micOnText.textContent = 'Audio recorded successfully.';
+              micOnText.style.display = 'block';
+
+          };
+
+          mediaRecorder.start();
+          micOffImage.style.display = "none";
+          micOnImage.style.display = "inline";
+          micOnText.textContent = 'The audio has been saved successfully';
+          micOnText.style.display = 'block';
+          micIsOn = true;
+      } catch (error) {
+          console.error('Error accessing microphone:', error);
+      }
+  }
+
+  function stopRecording() {
+      if (mediaRecorder && micIsOn) {
+          mediaRecorder.stop();
+          micIsOn = false;
+      }
+  }
+</script>
+
 {% endblock body %}
