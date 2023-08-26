@@ -1,7 +1,24 @@
-from flask import Flask, render_template, redirect, url_for
+
+import os
+from urllib import request
+
+from flask import Flask, render_template, redirect, url_for, request, flash
+
 from flask_bootstrap import Bootstrap
-from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm
+import requests
+from forms import DiseaseDetailsForm, PatientDetailsForm, LoginUserForm, RegisterUserForm, STTForm
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from speechToText import convert_speech_to_text
+
+
+from backend.mongoConnect import *
+
+
+from flask import Flask, request, jsonify
+from PIL import Image
+import io
+
 
 app = Flask(__name__, static_folder='static')
 Bootstrap(app=app)
@@ -30,17 +47,35 @@ def login_page():
     if user_login.validate_on_submit():
         email = user_login.email.data
         role = user_login.role.data
-        if email == "Get the email in database" and role == "Get the role in database":
-            hashed_password = "Get the hashed password for the email"
-            password = check_password_hash(
-                pwhash= hashed_password,
-                password=user_login.password.data
-            )
+        emailCheck = db['users'].find_one({'email' : email})
+        if(emailCheck):
+            hashPassword = emailCheck['password']
+            
+            password = generate_password_hash(
+                            user_login.password.data,
+                            method='pbkdf2:sha256',
+                            salt_length=8
+                        )
+            
+            if email == emailCheck['email'] and role == emailCheck['role']:
+                password = check_password_hash(
+                    pwhash=hashPassword,
+                    password=password
+                )
 
-            user.email = email
-            user.role = role
-            user.is_active = True
-            return redirect(url_for(f"{role}_page"), user=user)
+                user.email = email
+                user.role = role
+                user.is_active = True
+                print("Log in successful")
+                return redirect(url_for(f"{role}_page", user=user))
+            
+            else:
+                print("User does not exist")
+                return redirect(url_for('register_page'))
+            
+        else:
+            print("Wrong Email")
+            return redirect(url_for('login_page'))
     return render_template('login.html', login_form=user_login, user=user)
 
 @app.route('/register', methods=["GET", "POST"])
@@ -63,13 +98,33 @@ def register_page():
         user.role = role
         user.is_active = True
 
-        print(email)
-        print(name)
-        print(password)
-        print(role)
-        print(phone_no)
-        print(gender)
-        print(address)
+        data = {
+            "role": role,
+            "email": email,
+            "name": name,
+            "password": password,
+            "phone_no": phone_no,
+            "gender": gender,
+            "address": address
+        }
+
+        if request.method == 'POST':
+            emailCheck = db['users'].find_one({'email' : email})
+            print("Email cehck:", emailCheck)
+
+            if(emailCheck):
+                print("Email already exists")
+                return redirect(url_for('register_page'))
+            
+            result = insert('users', data)
+            
+            if(result):
+                print("Inserted Successfully")
+                print(result)
+                return redirect(url_for(f"home_page", user=user))
+            else:
+                print("Insertion Failed")
+                print(result)
 
         return redirect(url_for(f"{role}_page", user=user))
     return render_template('register.html', register_form=register_form, user=user)
@@ -82,9 +137,13 @@ def staff_page():
 def hospital_page():
     return render_template('reception.html', user=user)
 
-@app.route('/doctor')
+@app.route('/doctor', methods=["GET", "POST"])
 def doctor_page():
-    return render_template('doctor.html', user=user)
+    stt_form = STTForm()
+    text=None
+    if stt_form.validate_on_submit():
+        text = convert_speech_to_text('recorded/recorded-audio.wav')
+    return render_template('doctor.html', user=user, stt_form=stt_form, text=text)
 
 @app.route('/patient')
 def patient_page():
@@ -93,6 +152,21 @@ def patient_page():
 @app.route('/pharmacy')
 def pharmacy_page():
     return render_template('pharmacy.html', user=user)
+
+@app.route('/camera')
+def camera_page():
+    return render_template('camera.html', user=user)
+
+@app.route('/process_image', methods=['POST'])
+def process_image():
+    data = request.json
+    image_data = data['image'].split(',')[1]  # Extract image data from base64 format
+
+    # You can save the image data as a file here if needed
+    # For now, we'll just return a sample text
+    sample_text = "Hello, World!"
+
+    return jsonify({'text': sample_text})
 
 @app.route('/not_found')
 @app.errorhandler(404)
