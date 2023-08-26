@@ -4,5 +4,198 @@
 {% block title %}Register{% endblock title %}
 
 {% block body %}
-    
+
+<div class="conatiner-fluid form-signin">
+    <div id="intro" class="bg-image shadow-2-strong">
+            <div class="mt-1 px-2 py-5 mb-5">
+                <div class="col-12 col-sm-8 col-md-6 mx-auto">
+                    <div class="card border-3 shadow">
+                        <div class="card-body">
+                            <div>
+                                <h1 class="mx-auto text-center w-75 pb-1" style="color: #465A99;">Sign up <br>
+                                </h1>
+                            </div>
+                            <br>
+                            <div class="col-12 col-sm-8 col-md-6 mx-auto">
+                                <form class="needs-validation" novalidate="" action="{{url_for('home_page')}}">
+                                    <div class="row g-3">
+
+                                        <div class="col-12 mt-2">
+                                            <label for="user_type" class="form-label fw-semibold">User Type:</label>
+                                            <select class="form-select" id="user_type" name="user_type">
+                                                <option value="Doctor">Doctor</option>
+                                                <option value="Patient">Patient</option>
+                                                <option value="Pharmacist">Pharmacist</option>
+                                                <option value="Receptionist">Receptionist</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select your user type.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label for="firstName" class="form-label fw-semibold">First
+                                                Name:</label>
+                                            <input type="text" class="form-control" id="firstName"
+                                                placeholder="First name" value="" name="" required="">
+                                            <div class="invalid-feedback">
+                                                Valid middle name is required.
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="col-sm-6">
+                                            <label for="lastName" class="form-label fw-semibold">Last name:</label>
+                                            <input type="text" class="form-control" id="lastName"
+                                                placeholder="Last name" value="" required="">
+                                            <div class="invalid-feedback">
+                                                Valid last name is required.
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-4">
+                                            <label for="doctor_type" class="form-label fw-semibold">Doctor Type:</label>
+                                            <select class="form-select" id="doctor_type" name="doctor_type">
+                                                <option value="Surgeon">Surgeon</option>
+                                                <option value="Pediatrician">Pediatrician</option>
+                                                <option value="Dermatologist">Dermatologist</option>
+                                                <option value="Cardiologist">Cardiologist</option>
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select your user type.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="username" class="form-label fw-semibold">
+                                                <h6></h6>E-Mail ID:
+                                            </label>
+                                            <div class="input-group has-validation">
+                                                <input type="email" class="form-control" id="username"
+                                                    placeholder="email@example.com" name="email">
+                                                <div class="invalid-feedback">
+                                                    Your username is required.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="pass_word" class="form-label fw-semibold">Password:</label>
+                                            <div class="input has-validation">
+                                                <input class="form-control" type="password" placeholder="Password"
+                                                    id="pass_word" name="pass_word">
+                                                <div class="invalid-feedback">
+                                                    Your password is required.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                        <div class="col-12">
+                                            <label for="phone" class=" form-label fw-semibold">Phone number:</label>
+                                            <input type="tel" id="phone" name="phone"
+                                                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" class="form-control"
+                                                placeholder="0123456789" name="phone">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="pincode" class="form-label fw-semibold">Pincode:</label>
+                                            <input type="text" class="form-control" id="pincode" placeholder="123456" name="pincode">
+                                        </div>
+
+                                        <div class="col g-3">
+                                            <div class="row g-0">
+                                                <div class="">
+                                                    <label for="state" class="form-label fw-semibold">State</label>
+                                                    <select class="form-select" id="state" required="">
+                                                        <option value="" selected disabled>Select State</option>
+                                                        <option>Andhra Pradesh</option>
+                                                        <option>Anrunachal Pradesh</option>
+                                                        <option>Assam</option>
+                                                        <option>Bihar</option>
+                                                        <option>Chhattisgarh</option>
+                                                        <option>Goa</option>
+                                                        <option>Gujarat</option>
+                                                        <option>Haryana</option>
+                                                        <option>Himachal Pradesh</option>
+                                                        <option>Jammu and Kashmir</option>
+                                                        <option>Jharkhand</option>
+                                                        <option>Karnatak</option>
+                                                        <option>Kerela</option>
+                                                        <option>Madhya Pradesh</option>
+                                                        <option>Maharashtra</option>
+                                                        <option>Manipur</option>
+                                                        <option>Meghalaya</option>
+                                                        <option>Mizoram</option>
+                                                        <option>Nagaland</option>
+                                                        <option>Odisha</option>
+                                                        <option>Punjab</option>
+                                                        <option>Rajasthan</option>
+                                                        <option>Sikkim</option>
+                                                        <option>Tamil Nadu</option>
+                                                        <option>Telangana</option>
+                                                        <option>Tripura</option>
+                                                        <option>Uttar Pradesh</option>
+                                                        <option>Uttrakhand</option>
+                                                        <option>West Bengal</option>
+                                                        <option>Chandigarh</option>
+                                                        <option>Dadar and Nagar Haveli</option>
+                                                        <option>Delhi</option>
+                                                        <option>Daman and Diu</option>
+                                                        <option>Lakshadeep</option>
+                                                        <option>Pondicherry</option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please provide a valid state.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <br>
+
+                                            <div class="legend">
+                                                <label class="form-label fw-semibold me-3">Gender:</label>
+                                                <div class="form-check d-inline-flex">
+                                                    <input class="form-check-input me-2" type="radio"
+                                                        name="flexRadioDefault" id="flexRadioDefault1">
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Male
+                                                    </label>
+                                                </div>
+                                                <div class="ms-3 form-check d-inline-flex">
+                                                    <input class="form-check-input me-2" type="radio"
+                                                        name="flexRadioDefault" id="flexRadioDefault2">
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Female
+                                                    </label>
+                                                </div>
+                                                <br>
+                                                <br>
+                                            </div>
+                                            
+                                            <br>
+                                            <div class="text-center mt-3">
+                                                <button class="w-100 btn btn-lg btn-primary" type="submit">Sign
+                                                    Up</button>
+                                                <br><br>
+                                                <p class="lead d-inline-flex">Already have an account ?&nbsp;&nbsp;<a
+                                                    href="{{url_for('login_page')}}"
+                                                    class="nav-link link-primary d-inline-flex"
+                                                    style="color:#1c8adb;">Login</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock body %}

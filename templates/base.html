@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {% block title %}{% endblock title %} </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    {% block scripts %}{% endblock scripts %}
+    
 </head>
 <body>
     <!-- Navbar -->
@@ -78,8 +78,8 @@
                     {% endif %}
                 </ul>
                 <form class="d-flex mx-auto">
-                    <a class="btn btn-primary ms-5 me-2 rounded-pill fw-bold" type="submit" href="/courses">Log in</a>
-                    <a class="btn btn-primary me-0 rounded-pill fw-bold" type="submit" href="/signin">Sign in</a>
+                    <a class="btn btn-primary ms-5 me-2 rounded-pill fw-bold" type="submit" href="/login">Log in</a>
+                    <a class="btn btn-primary me-0 rounded-pill fw-bold" type="submit" href="/register">Sign in</a>
                 </form>
             </div>
         </div>
@@ -100,5 +100,8 @@
         </div>
     </footer>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    {% block scripts %}{% endblock scripts %}
 </body>
 </html>

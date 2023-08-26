@@ -1,8 +1,263 @@
 {% extends 'base.html' %}
-
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+{% endblock script %}
 
 {% block title %}Home{% endblock title %}
 
 {% block body %}
-    
+    <div class="d-inline-flex">
+        <img src="/static/img/hero.jpg" alt="" style="object-fit: contain; height: 100%; width: 100%;" class="shadow-sm">
+        <img src="" alt="" style="margin-top: 100px;" class="position-absolute">
+    </div>
+
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <h2 class=" text-center pt-3"> What's happening at AU ? </h2>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container text-center">
+              <div class="row m-5 p-3">
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/Screenshot_2022-12-05_160757.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">Adani University accorded status by Gujarat Legislative Assembly</h5>
+                    </a>
+                    <p><small>Apr 3, 2022</small></p>
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/Untitled_designsdfn.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">AIIM announces Admission Notification for PGDM (Infrastructure
+                        Management)
+                        for Batch 2022-24</h5>
+                    </a>
+                    <p><small>Jan 28, 2022</small></p>
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/AIER-AU-MOU-2.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">MoU Signing between Adani Institute for Education and Research (AIER)
+                        and
+                        Andhra University (AU)</h5>
+                    </a>
+                    <p><small>Sep 9,2021</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container text-center">
+              <div class="row m-5 p-5">
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/Screenshot_2022-12-05_160757.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">Adani University accorded status by Gujarat Legislative Assembly</h5>
+                    </a>
+                    <p><small>Apr 3, 2022</small></p>
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/Untitled_designsdfn.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">AIIM announces Admission Notification for PGDM (Infrastructure
+                        Management)
+                        for Batch 2022-24</h5>
+                    </a>
+                    <p><small>Jan 28, 2022</small></p>
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/AIER-AU-MOU-2.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">MoU Signing between Adani Institute for Education and Research (AIER)
+                        and
+                        Andhra University (AU)</h5>
+                    </a>
+                    <p><small>Sep 9,2021</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container text-center">
+              <div class="row m-5 p-5">
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/Screenshot_2022-12-05_160757.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">Adani University accorded status by Gujarat Legislative Assembly</h5>
+                    </a>
+                    <p><small>Apr 3, 2022</small></p>
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/Untitled_designsdfn.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">AIIM announces Admission Notification for PGDM (Infrastructure
+                        Management)
+                        for Batch 2022-24</h5>
+                    </a>
+                    <p><small>Jan 28, 2022</small></p>
+                  </div>
+                </div>
+                <div class="col-md-4 d-flex text-center">
+                  <div class="container">
+                    <!-- here is where they add the ICON -->
+                    <a href="#" style="text-decoration: none; color: black;">
+                      <img src="/static/Images/AIER-AU-MOU-2.jpg" alt="..." class="rounded h-50 w-75">
+                      <h5 class="card-title pt-3">MoU Signing between Adani Institute for Education and Research (AIER)
+                        and
+                        Andhra University (AU)</h5>
+                    </a>
+                    <p><small>Sep 9,2021</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <section class="gradient-custom">
+        <div class="container my-3 rounded-4 shadow-lg  ">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12">
+              <div class="text-center mb-4 pb-2">
+                <i class="fas fa-quote-left fa-3x text-white"></i>
+              </div>
+              <div class="container">
+                <h1 class="text-center">Reviews</h1>
+              </div>
+      
+              <div class="container">
+                <div class="px-4 py-5">
+                  <!-- Carousel wrapper -->
+                  <div id="carouselDarkVariant" class="carousel slide carousel-dark" data-bs-ride="carousel">
+                    <!-- Indicators -->
+                    <div class="carousel-indicators mb-0">
+                      <button data-bs-target="#carouselDarkVariant" data-bs-slide-to="0" class="active" aria-current="true"
+                        aria-label="Slide 1"></button>
+                      <button data-bs-target="#carouselDarkVariant" data-bs-slide-to="1" aria-label="Slide 1"></button>
+                      <button data-bs-target="#carouselDarkVariant" data-bs-slide-to="2" aria-label="Slide 1"></button>
+                    </div>
+      
+                    <!-- Inner -->
+                    <div class="carousel-inner pb-5">
+                      <!-- Single item -->
+                      <div class="carousel-item active">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-lg-10 col-xl-8">
+                            <div class="row">
+                              <div class="col-lg-4 d-flex justify-content-center">
+                                <img src="https://cdn-icons-png.flaticon.com/512/1993/1993906.png"
+                                  class="shadow-1 mb-4 mb-lg-0" alt="woman avatar" width="150" height="150" />
+                              </div>
+                              <div class="col-9 col-md-9 col-lg-7 col-xl-8 text-center text-lg-start mx-auto mx-lg-0">
+                                <h4 class="mb-4">Jane Doe - Web Developer</h4>
+                                <p class="mb-0 pb-3">
+                                  We have learning hubs not mere classrooms.
+                                  At AIIM, the culture is very interactive, we have always been given the opportunity to
+                                  express our views on any topic. Several seminars and workshops by eminent industry experts
+                                  are conducted at the campus to have better understanding of subjects and improve our skills.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <!-- Single item -->
+                      <div class="carousel-item">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-lg-10 col-xl-8">
+                            <div class="row">
+                              <div class="col-lg-4 d-flex justify-content-center">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3584/3584382.png"
+                                  class="shadow-1 mb-4 mb-lg-0" alt="woman avatar" width="150" height="150" />
+                              </div>
+                              <div class="col-9 col-md-10 col-lg-7 col-xl-8 text-center text-lg-start mx-auto mx-lg-0">
+                                <h4 class="mb-4">Jane Roe - Graphic Designer</h4>
+                                <p class="mb-0 pb-3">
+                                  The unique and distinctive proposition of learning at AIIM has helped me in understanding
+                                  the management concepts in a more effective way. We had the opportunity to learn through the
+                                  extremely interactive and engaging lectures from the in-house faculty and visiting
+                                  professors with both industrial experience and academic experience.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <!-- Single item -->
+                      <div class="carousel-item">
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-lg-10 col-xl-8">
+                            <div class="row">
+                              <div class="col-lg-4 d-flex justify-content-center">
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjL-Yf-qJxje_vEPoSDcihlouk_qEgZEJxApDWbYS2gH4-6D_UzrnA37WtrHNRiWdy7p0&usqp=CAU"
+                                  class="shadow-1 mb-4 mb-lg-0" alt="woman avatar" width="150" height="150" />
+                              </div>
+                              <div class="col-9 col-md-9 col-lg-7 col-xl-8 text-center text-lg-start mx-auto mx-lg-0">
+                                <h4 class="mb-4">John Doe - Marketing Specialist</h4>
+                                <p class="mb-0 pb-3">
+                                  Apart from its “State of the art” education, AIIE provides a nexus between academics and
+                                  industrial wants. I'm grateful to the institute, which provided the environment to prove
+                                  myself during campus recruitment interviews. With an excellent CDC, I could achieve the
+                                  opportunity to work in Schindler India. As a fresher it was a great start for me.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Inner -->
+      
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDarkVariant"
+                      data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDarkVariant"
+                      data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                  <!-- Carousel wrapper -->
+                </div>
+              </div>
+      
+              <div class="text-center mt-4 pt-2">
+                <i class="fas fa-quote-right fa-3x text-white"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 {% endblock body %}
