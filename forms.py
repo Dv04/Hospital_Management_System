@@ -1,6 +1,6 @@
 import re
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, SelectField, IntegerField, TextAreaField, RadioField, validators
+from wtforms import StringField, SubmitField, PasswordField, SelectField, IntegerField, TextAreaField, RadioField, validators, SelectMultipleField
 from wtforms.validators import DataRequired
 from Disease import list_column_names
 
@@ -14,7 +14,7 @@ def validate_phone_number(form, field):
 column_names = list_column_names("dataset/Training.csv")
 class DiseaseDetailsForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
-    disease_list = SelectField("Disease", choices=[(column_name, column_name) for column_name in column_names])
+    symptomp_list = SelectMultipleField("Disease", choices=[(column_name, column_name) for column_name in column_names])
     submit = SubmitField("Submit")
 
 class PatientDetailsForm(FlaskForm):
