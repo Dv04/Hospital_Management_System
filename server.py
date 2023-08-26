@@ -29,7 +29,7 @@ def login_page():
     user_login = LoginUserForm()
     if user_login.validate_on_submit():
         email = user_login.email.data
-        role = user.role.data
+        role = user_login.role.data
         if email == "Get the email in database" and role == "Get the role in database":
             hashed_password = "Get the hashed password for the email"
             password = check_password_hash(
