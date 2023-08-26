@@ -109,10 +109,17 @@
                     </li>a
                     {% endif %}
                 </ul>
+                {% if not user.is_active %}
                 <form class="d-flex mx-auto">
                     <a class="btn btn-primary ms-5 me-2 rounded-pill fw-bold" type="submit" href="{{ url_for('login_page') }}">Log in</a>
                     <a class="btn btn-primary me-0 rounded-pill fw-bold" type="submit" href="{{ url_for('register_page') }}">Sign up</a>
                 </form>
+                {% endif %}
+                {% if user.is_active %}
+                <form class="d-flex mx-auto">
+                    <a class="btn btn-primary ms-5 me-2 rounded-pill fw-bold" type="submit" href="{{ url_for('sign_out_page') }}">Log out</a>
+                </form>
+                {% endif %}
             </div>
         </div>
       </div>
