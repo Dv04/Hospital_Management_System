@@ -11,7 +11,7 @@ def convert_mp3_to_wav(mp3_file_path):
     
     return wav_file_path
 
-def convert_speech_to_text(audio_file_path):
+def convert_speech_to_text(audio_file_path="recorded/recorded-audio.wav"):
     # Initialize the recognizer
     recognizer = sr.Recognizer()
 

@@ -1,0 +1,48 @@
+[{
+  "_id": {
+    "$oid": "64e9aea5470a974cb25d3a97"
+  },
+  "role": "doctor",
+  "email": "test@gmail.com",
+  "name": "Heet Vekariya",
+  "password": "pbkdf2:sha256:260000$mPWE9sqm$a15ac76d41bac889c9d4b8f1168dbbdb379127b7baa9dee834f6e1085688183b",
+  "phone_no": 1234567890,
+  "gender": "male",
+  "address": "abc"
+},
+{
+  "_id": {
+    "$oid": "64e9c02e4f42a3e2e8ed944d"
+  },
+  "role": "reception",
+  "email": "test1@gmail.com",
+  "name": "Dev Sanghvi",
+  "password": "pbkdf2:sha256:260000$nIYDfZBj$86a30d4c52af854d50334e1ea1d6237bd40131541e598c7a82cb5768e61d9c87",
+  "phone_no": "1234567890",
+  "gender": "male",
+  "address": "xyz"
+},
+{
+  "_id": {
+    "$oid": "64e9c0594f42a3e2e8ed944e"
+  },
+  "role": "staff",
+  "email": "test3@gmail.com",
+  "name": "Madhur Prajapati",
+  "password": "pbkdf2:sha256:260000$LUVQ108j$480ae6900e4fb52b2d2ec8c73a5623ca656ed7f65791b6f68c30b56cf7d0c576",
+  "phone_no": "1234567890",
+  "gender": "male",
+  "address": "xyz"
+},
+{
+  "_id": {
+    "$oid": "64e9c0a34f42a3e2e8ed944f"
+  },
+  "role": "patient",
+  "email": "test2@gmail.com",
+  "name": "Naimish Bhuva",
+  "password": "pbkdf2:sha256:260000$Kw0lQQW9$b27995f9d2dedda5b0a637367892f9788c533b90b7f5efe28edea7102c60c12b",
+  "phone_no": "1234567890",
+  "gender": "male",
+  "address": "xyz"
+}]
