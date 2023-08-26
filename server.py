@@ -7,7 +7,7 @@ Bootstrap(app=app)
 app.app_context().push()
 app.secret_key = "secret-tunnel"
 
-user = LoginUserForm()
+user = []
 
 @app.route('/')
 def home_page():
