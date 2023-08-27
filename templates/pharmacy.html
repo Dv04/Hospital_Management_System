@@ -1,30 +1,35 @@
 {% extends 'base.html' %}
 
-{% block title %}Pharmacy{% endblock title %}
+
+{% block title %}medicine{% endblock title %}
 
 {% block body %}
-<div id="medicines">
+<div id="medicine">
+  <div id="medicine-list">
     <div class="container">
-        <div class="card" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Calpol</h5>
-            <p class="card-text">
-                It is an analgesic and antipyretic drug that is used to temporarily relieve mild-to-moderate pain and fever. It is commonly included as an ingredient in cold and flu medications and is also used on its own.
-            </p>
-          </div>
+      <h1 class="text-center">Pharmacy</h1>
+        <div class="row">
+            {% for medicine in medicine_data %}
+            <div class="col-md-4"> <!-- Adjust col-md-4 based on the number of cards per row -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ medicine.name }}</h5>
+                        <p class="card-text">
+                            <strong>Name:</strong> {{ medicine.name }}<br>
+                            <strong>Company:</strong> {{ medicine.brand }}<br>
+                            <strong>Strength:</strong> {{ medicine.strength }}<br>
+                            <strong>Incident:</strong> {{ medicine.indication }}<br>
+                            <strong>Ingredients:</strong> {{ medicine.active_ingredient }}<br>
+                            <strong>Prescription required:</strong> {{ medicine.prescription_required }}<br>
+  
+                            <!-- Add more medicine information fields as needed -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-      </div>
-</div>
-<div id="prescription">
-  <div class="container">
-  <div class="card" style="width: 18rem">
-    <div class="card-body">
-      <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Dev Sanghvi</h5>
-      <p class="card-text">
-          Prescription: 2 Dolo Paracetamol, 10ml Cough Syrup
-      </p>
     </div>
   </div>
-</div>
-</div>
+
 {% endblock body %}

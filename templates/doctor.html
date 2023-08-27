@@ -35,7 +35,29 @@ body %}
   .mic-on-listening-text {
     display: none;
   }
+
+  .submit-button {
+    margin-top: 50px;
+  }
+
+  .predicted-data-output {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-left: -1000px;
+  }
+
+  .predicted-data-output-text {
+    /* background-color: antiquewhite; */
+    text-align: left;
+    margin: 0 177px;
+    padding: 20px;
+    height: 400px;
+    overflow: auto;
+    margin-bottom: 100px;
+  }
 </style>
+
 
 <div id="predictive-model">
     <div class="container">
@@ -54,7 +76,7 @@ body %}
 </div>
 
 <div id="speech-to-text">
-    <div>
+    <!-- <div>
       <p class="heading-speech-to-text">Please click the icon before starting the patient's councelling:</p> <br /><br />
 
       {{ text }}
@@ -63,19 +85,31 @@ body %}
           {{ wtf.quick_form(stt_form, novalidate=True, button_map={"submit": "primary"}) }}
         </div>
 
-      <img id="mic-off" src="./../static/img/mic-off.png" alt="mic input off" onclick="startRecording()"/>
+        <img id="recordButton" src="./../static/img/mic-off.png" alt="mic input off"/>
+        
+        <button id="stopButton">stop</button>
+        <audio id="audioFile"></audio>
+       <img id="mic-off" src="./../static/img/mic-off.png" alt="mic input off" onclick="startRecording()"/>
       <img id="mic-on" src="./../static//img/mic-on.png" alt="mic input on" style="display: none;" onclick="stopRecording()"/>
-
-      <div class="mic-on-listening-text"><br />listening...</div>
+      <a id="downloadLink" style="display: none;">Download Audio</a>
+    </div> -->
+    <div class="heading-speech-to-text">
+      <form onsubmit="">
+        <div>
+          <label>Upload the audio file to digitize the record: </label>
+          <input type="file" accept=".wav"/>
+        </div>
+        <input type="submit" value="predict the data" class="submit-button" />
+      </form>
     </div>
-
-    <!-- <div>
-      Convert the audio to text: <button>Convert</button>
-    </div> -->
-    <!-- <div>
-      <div>Predicted text: <span id="predicted-text"></span></div>
-    </div> -->
-
+    <div>
+      <div class="predicted-data-output">Predicted data:</div>
+      <div>
+        <p class="predicted-data-output-text">
+          {{ text }}
+        </p>
+      </div>
+    </div>
 </div>
 <div id="ocr">
     <p>OCR</p>
@@ -84,7 +118,7 @@ body %}
     <p>Form Here</p>
 </div>
 
-<script>
+<!-- <script>
   let micIsOn = false;
   let mediaRecorder;
   let audioChunks = [];
@@ -112,21 +146,21 @@ body %}
 
               micOffImage.style.display = "inline";
               micOnImage.style.display = "none";
+              micOnText.textContent = 'Audio recorded successfully';
+              micOnText.style.display = 'block';
 
-                // Simulate a click event to trigger the download
+              // Simulate a click event to trigger the download
               a.click();
 
               // Clean up by removing the anchor element
               document.body.removeChild(a); 
-
-              micOnText.textContent = 'Audio recorded successfully.';
-              micOnText.style.display = 'block';
+              console.log('this is running ...')
           };
 
           mediaRecorder.start();
           micOffImage.style.display = "none";
           micOnImage.style.display = "inline";
-          micOnText.textContent = 'The audio has been saved successfully';
+          micOnText.textContent = 'listening...';
           micOnText.style.display = 'block';
           micIsOn = true;
       } catch (error) {
@@ -140,6 +174,65 @@ body %}
           micIsOn = false;
       }
   }
-</script>
+</script> -->
+
+<!-- <script>
+  var audioFile = document.getElementById("audioFile");
+var recordButton = document.getElementById("recordButton");
+var stopButton = document.getElementById("stopButton");
+
+var mediaRecorder = null;
+var isRecording = false;
+
+recordButton.onclick = function() {
+  console.log('onclick has been called ...');
+  // Check if the user has granted permission to record audio.
+  if (navigator.mediaDevices.getUserMedia) {
+    // Get a MediaStream object from the getUserMedia() method.
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(mediaStream) {
+      // Create a new MediaRecorder object.
+      mediaRecorder = new MediaRecorder(mediaStream);
+
+      // Start recording audio.
+      mediaRecorder.start();
+
+      // Update the UI to show that the user is recording audio.
+      isRecording = true;
+      recordButton.disabled = true;
+      stopButton.disabled = false;
+
+      // Listen for the dataavailable event.
+      mediaRecorder.addEventListener("dataavailable", function(e) {
+        // Get the audio data from the event.
+        var audioData = e.data;
+
+        // Create a blob object from the audio data.
+        var blob = new Blob([audioData], { type: "audio/wav" });
+
+        // Save the audio file to the user's PC.
+        var filename = "recorded-audio.wav";
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+      });
+    });
+  } else {
+    // The user does not have permission to record audio.
+    alert("Please grant permission to record audio in your browser settings.");
+  }
+};
+
+stopButton.onclick = function() {
+  // Stop recording audio.
+  mediaRecorder.stop();
+
+  // Update the UI to show that the user is no longer recording audio.
+  isRecording = false;
+  recordButton.disabled = false;
+  stopButton.disabled = true;
+};
+</script> -->
 
 {% endblock body %}
