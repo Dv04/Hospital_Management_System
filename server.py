@@ -159,15 +159,16 @@ def sign_out_page():
 @logged_in
 def staff_page():
     if request.method == 'GET':
-        print("inside staff page")
         data = find("doctors")
         return render_template("staff.html", user=user, staff_data=data)
 
 
-@app.route("/reception")
+@app.route("/medicine", methods=["GET", "POST"])
 @logged_in
 def hospital_page():
-    return render_template("reception.html", user=user)
+    if request.method == 'GET':
+        data = find("madicine")
+        return render_template("medicine.html", user=user, medicine_data=data)
 
 
 @app.route("/doctor", methods=["GET", "POST"])
