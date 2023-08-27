@@ -22,7 +22,7 @@ def convert_speech_to_text(audio_file_path="recorded/recorded-audio.wav"):
     try:
         # Recognize the audio using Google Web Speech API
         text = recognizer.recognize_google(audio_data)
-        return text
+        print(text)
     except sr.UnknownValueError:
         print("Google Web Speech API could not understand the audio")
     except sr.RequestError as e:
@@ -42,3 +42,5 @@ def convert_speech_to_text(audio_file_path="recorded/recorded-audio.wav"):
 #         if result:
 #             print("Text from audio:")
 #             print(result)
+
+convert_speech_to_text()
