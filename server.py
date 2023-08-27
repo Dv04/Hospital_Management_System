@@ -155,10 +155,13 @@ def sign_out_page():
     return redirect(url_for("home_page"))
 
 
-@app.route("/staff")
+@app.route("/staff", methods=["GET", "POST"])
 @logged_in
 def staff_page():
-    return render_template("staff.html", user=user)
+    if request.method == 'GET':
+        print("inside staff page")
+        data = find("doctors")
+        return render_template("staff.html", user=user, staff_data=data)
 
 
 @app.route("/reception")
@@ -213,10 +216,12 @@ def disease_prediction():
     return render_template("prediction.html", form=form, user=user)
 
 
-@app.route("/patient")
+@app.route("/patient", methods=["GET", "POST"])
 @logged_in
 def patient_page():
-    return render_template("patient.html", user=user)
+    if request.method == 'GET':
+        data = find("patient")
+        return render_template("patient.html", user=user, patient_data=data)
 
 
 @app.route("/pharmacy")

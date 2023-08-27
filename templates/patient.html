@@ -4,28 +4,37 @@
 {% block title %}Patient{% endblock title %}
 
 {% block body %}
-<div id="case-history">
-    <div class="container">
-        <div class="card" style="width: 18rem">
-          <div class="card-body">
-              <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Dev Sanghvi</h5>
-            <p class="card-text">
-                Covid-19
-            </p>
-          </div>
-        </div>
-      </div>
-</div>
-<div id="book-appointment">
+<div id="patient-list">
   <div class="container">
-    <div class="card" style="width: 18rem">
-      <div class="card-body">
-          <h5 class="card-title"><img src="..." class="card-img-top" alt="..." />Dev Sanghvi</h5>
-        <p class="card-text">
-            <b>Time Slot:</b> 11:15 A.M.
-        </p>
+    <h1 class="text-center">Patients</h1>
+      <div class="row">
+          {% for patient in patient_data %}
+          <div class="col-md-4"> <!-- Adjust col-md-4 based on the number of cards per row -->
+              <div class="card mb-4">
+                  <div class="card-body">
+                      <h5 class="card-title">{{ patient.name }}</h5>
+                      <p class="card-text">
+                          <strong>Name:</strong> {{ patient.name }}<br>
+                          <strong>Aadhar Card Number:</strong> {{ patient.aadhar_card_number }}<br>
+                          <strong>Email:</strong> {{ patient.email }}<br>
+                          <strong>Gender:</strong> {{ patient.gender }}<br>
+                          <strong>Date of Birth:</strong> {{ patient.date_of_birth }}<br>
+                          <strong>Blood group:</strong> {{ patient.blood_type }}<br>
+                          <strong>Phone number:</strong> {{ patient.phone_number }}<br>
+                          <strong>Previous Medical History:</strong>
+                          <br>
+                          {% for history_item in patient.previous_medical_history %}
+                          - {{ history_item }}
+                          <br>
+                          {% endfor %}
+
+                          <!-- Add more patient information fields as needed -->
+                      </p>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
       </div>
-    </div>
   </div>
 </div>
 {% endblock body %}
