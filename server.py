@@ -48,9 +48,6 @@ def logged_in(function):
 
     return decorated_function
 
-def user_priv(function):
-    return decorated_function
-
 user = User()
 
 
