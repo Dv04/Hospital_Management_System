@@ -78,24 +78,30 @@
                         <a class="nav-link" aria-current="page" onclick="showDoctorSection('predictive-model')" href="{{ url_for('disease_prediction') }}">AI-ML</a>
                     </li>
                     <li class="nav-item" style="cursor: pointer;">
-                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('speech-to-text')" >Speech-To-Text</a>
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('predictive-model')" href="{{ url_for('patient_page') }}">Patients</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('speech-to-text')" href="{{ url_for('doctor_page') }}">Speech-To-Text</a>
                     </li>
                     <li class="nav-item" style="cursor: pointer;">
                         <a class="nav-link" aria-current="page" onclick="showDoctorSection('ocr')" href="{{url_for('camera_page')}}">Text Scanner</a>
                     </li>
                     <li class="nav-item" style="cursor: pointer;">
-                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('disease-form')">Form</a>
+                        <a class="nav-link" aria-current="page" onclick="showDoctorSection('ocr')" href="{{url_for('staff_page')}}">Staff</a>
                     </li>
                     {% endif %}
                     {% if user.role == "staff" %}
                     <li class="nav-item" style="cursor: pointer;">
-                        <a class="nav-link" aria-current="page" onclick="showStaffSection('employee')">Employee</a>
+                        <a class="nav-link" aria-current="page" onclick="showStaffSection('employee')" href="{{ url_for('staff_page') }}">Employee</a>
                     </li>
                     <li class="nav-item" style="cursor: pointer;">
                         <a class="nav-link" aria-current="page" onclick="showStaffSection('equipment')">Equipment</a>
                     </li>
                     <li class="nav-item" style="cursor: pointer;">
                         <a class="nav-link" aria-current="page" onclick="showStaffSection('operation-room')">Operation Room</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" aria-current="page" onclick="showStaffSection('medicine-data')" href="{{ url_for('hospital_page') }}">Medicines</a>
                     </li>
                     {% endif %}
                     {% if user.role == "patient" %}
@@ -154,16 +160,9 @@
         // Show the selected section
         $("#" + sectionId).show();
       }
-      function showDoctorSection(sectionId) {
-        // Hide all sections
-        $("#predictive-model, #speech-to-text, #ocr, #disease-form").hide();
-
-        // Show the selected section
-        $("#" + sectionId).show();
-      }
       function showStaffSection(sectionId) {
         // Hide all sections
-        $("#employee, #equipment, #operation-room").hide();
+        $("#employee, #equipment, #operation-room, medicine-data").hide();
 
         // Show the selected section
         $("#" + sectionId).show();
@@ -178,16 +177,12 @@
 
       // Hide all sections
       $("#new-patient, #existing-patient, #appointments").hide();
-      $("#predictive-model, #speech-to-text, #ocr, #disease-form").hide();
-      $("#employee, #equipment, #operation-room").hide();
+      $("#employee, #equipment, #operation-room, #medicine-data").hide();
       $("#case-history, #book-appointment").hide();
 
       // Show the selected section
       if(user.role == "reception") {
           $('#new-patient').show();
-      }
-      if(user.role == "doctor") {
-          $('#predictive-model').show();
       }
       if(user.role != "staff") {
           $('#employee').show();

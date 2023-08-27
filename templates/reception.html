@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% import "bootstrap/wtf.html" as wtf %}    {% block title %}Doctor{% endblock title %} {% block
+    body %}
+    <style>
+        /* Style the logo */
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+      
+        /* Style the mic images */
+        #mic-off, #mic-on {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+      
+        /* Center text in #speech-to-text */
+        #speech-to-text {
+            text-align: center;
+            margin-top: 100px;
+        }
+      
+        /* Add some space below the form */
+        #disease-form {
+            margin-top: 20px;
+        }
+      
+        .heading-speech-to-text {
+          font-size: 20px;
+          font-weight: 600;
+        }
+      
+        .mic-on-listening-text {
+          display: none;
+        }
+      
+        .submit-button {
+          margin-top: 50px;
+        }
+      
+        .predicted-data-output {
+          font-size: 20px;
+          font-weight: 600;
+          margin-top: 30px;
+          margin-left: -1000px;
+        }
+      
+        .predicted-data-output-text {
+          /* background-color: antiquewhite; */
+          text-align: left;
+          margin: 0 177px;
+          padding: 20px;
+          height: 400px;
+          overflow: auto;
+          margin-bottom: 100px;
+        }
+      </style>
+      
+      <div id="new-patient">
+          <!-- <div>
+            <p class="heading-speech-to-text">Please click the icon before starting the patient's councelling:</p> <br /><br />
+      
+            {{ text }}
+      
+              <div class="col-lg-8 col-md-10 mb-5 mx-auto ">
+                {{ wtf.quick_form(stt_form, novalidate=True, button_map={"submit": "primary"}) }}
+              </div>
+      
+              <img id="recordButton" src="./../static/img/mic-off.png" alt="mic input off"/>
+              
+              <button id="stopButton">stop</button>
+              <audio id="audioFile"></audio>
+             <img id="mic-off" src="./../static/img/mic-off.png" alt="mic input off" onclick="startRecording()"/>
+            <img id="mic-on" src="./../static//img/mic-on.png" alt="mic input on" style="display: none;" onclick="stopRecording()"/>
+            <a id="downloadLink" style="display: none;">Download Audio</a>
+          </div> -->
+          <div class="heading-speech-to-text">
+            <form onsubmit="">
+              <div>
+                <label>Upload the audio file to digitize the record: </label>
+                <input type="file" accept=".wav"/>
+              </div>
+              <input type="submit" value="predict the data" class="submit-button" />
+            </form>
+          </div>
+          <div>
+            <div class="predicted-data-output">Predicted data:</div>
+            <div>
+              <p class="predicted-data-output-text">
+                {{ text }}
+              </p>
+            </div>
+          </div>
+      </div>
+      
+      
+{% endblock body %}
