@@ -3,7 +3,7 @@ from bson import ObjectId
 
 client = MongoClient('mongodb://localhost:27017')
 db = client['Hospital']
-collectioName = ['patient', 'equipment', 'madicine', 'staff', 'users', 'doctors']
+collectioName = ['patient', 'equipment', 'madicine', 'staff', 'users', 'doctors', 'prescription']
 
 def getCollection(collectionName):
     if collectionName not in collectioName:

@@ -1,40 +1,14 @@
 {% extends 'base.html' %} {% import "bootstrap/wtf.html" as wtf %} {% block
 title %}Camera{% endblock title %} {% block body %}
 
-<!-- Stylized Camera Feed -->
-<video
-  id="cameraFeed"
-  autoplay
-  style="
-    display: block;
-    width: 100%;
-    max-width: 640px;
-    border: 5px solid #333;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    margin: 30px auto;
-  "
-></video>
+<!-- Add image upload form -->
+<form id="imageUploadForm" enctype="multipart/form-data" style="text-align: center;">
+  <input type="file" accept="image/*" id="imageInput" style="margin: 20px;">
+  <button type="button" id="uploadButton" class="btn btn-primary">Upload Image</button>
+</form>
 
-<!-- Stylized Capture Button -->
-<button
-  id="captureButton"
-  style="
-    display: block;
-    width: 200px;
-    height: 50px;
-    margin: 10px auto;
-    background-color: #007bff;
-    color: white;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-  "
->
-  Capture
-</button>
+
+
 
 <!-- Stylized Result Div -->
 <div
@@ -51,38 +25,30 @@ title %}Camera{% endblock title %} {% block body %}
 ></div>
 
 <script>
-  const video = document.getElementById("cameraFeed");
-  const captureButton = document.getElementById("captureButton");
+  const imageInput = document.getElementById("imageInput");
+  const uploadButton = document.getElementById("uploadButton");
   const resultDiv = document.getElementById("result");
 
-  async function startCamera() {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    video.srcObject = stream;
-  }
+  uploadButton.addEventListener("click", async () => {
+    const selectedFile = imageInput.files[0];
+    if (!selectedFile) {
+      return;
+    }
 
-  captureButton.addEventListener("click", async () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const formData = new FormData();
+    formData.append("image", selectedFile);
 
-    const imageData = canvas.toDataURL("image/jpeg"); // Convert to image data
-
-    // Send imageData to backend
+    console.log("Uploading image...")
+    // Send image data to backend
     const response = await fetch("/process_image", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image: imageData }),
+      body: formData,
     });
 
     const data = await response.json();
-    resultDiv.textContent = data.text; // Display sample text
+    console.log(data);
+    resultDiv.textContent = data.text; // Display extracted text
   });
-
-  startCamera();
 </script>
 
 {% endblock body %}
