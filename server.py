@@ -2,7 +2,7 @@ from functools import wraps
 import os
 from urllib import request
 
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 
 from flask_bootstrap import Bootstrap
 import requests
@@ -19,7 +19,7 @@ from speechToText import convert_speech_to_text
 from predict_disease import predict_disease
 
 from backend.mongoConnect import *
-
+from model import *
 
 from flask import Flask, request, jsonify
 from PIL import Image
@@ -48,6 +48,8 @@ def logged_in(function):
 
     return decorated_function
 
+def user_priv(function):
+    return decorated_function
 
 user = User()
 
@@ -72,18 +74,20 @@ def login_page():
         if emailCheck:
             hashPassword = emailCheck["password"]
 
-            password = generate_password_hash(
-                user_login.password.data, method="pbkdf2:sha256", salt_length=8
-            )
+            password = user_login.password.data
 
             if email == emailCheck["email"] and role == emailCheck["role"]:
-                password = check_password_hash(pwhash=hashPassword, password=password)
-
-                user.email = email
-                user.role = role
-                user.is_active = True
-                print("Log in successful")
-                return redirect(url_for(f"{role}_page", user=user))
+                if check_password_hash(pwhash=hashPassword, password=password):
+                    user.email = email
+                    user.role = role
+                    user.is_active = True
+                    session['user'] = {  # Store user data in a session
+                        'email': email,
+                        'role': role,
+                        'is_active': True
+                    }
+                    print("Log in successful")
+                    return redirect(url_for(f"{role}_page"))
 
             else:
                 print("User does not exist")
@@ -155,16 +159,22 @@ def sign_out_page():
     return redirect(url_for("home_page"))
 
 
-@app.route("/staff")
+@app.route("/staff", methods=["GET", "POST"])
 @logged_in
 def staff_page():
-    return render_template("staff.html", user=user)
+    data = None
+    if request.method == 'GET':
+        data = find("doctors")
+    return render_template("staff.html", user=user, staff_data=data)
 
 
-@app.route("/reception")
+@app.route("/medicine", methods=["GET", "POST"])
 @logged_in
 def hospital_page():
-    return render_template("reception.html", user=user)
+    data = None
+    if request.method == 'GET':
+        data = find("madicine")
+    return render_template("medicine.html", user=user, medicine_data=data)
 
 
 @app.route("/doctor", methods=["GET", "POST"])
@@ -177,7 +187,13 @@ def doctor_page():
     return render_template("doctor.html", user=user, stt_form=stt_form, text=text)
 
 
+@app.route("/reception", methods=["GET", "POST"])
+def reception_page():
+    stt_form = STTForm()
+    return redirect(url_for("disease_prediction"))
+
 @app.route("/prediction", methods=["GET", "POST"])
+@logged_in
 def disease_prediction():
     form = DiseaseDetailsForm(request.form)
     if request.method == "POST":
@@ -213,10 +229,13 @@ def disease_prediction():
     return render_template("prediction.html", form=form, user=user)
 
 
-@app.route("/patient")
+@app.route("/patient", methods=["GET", "POST"])
 @logged_in
 def patient_page():
-    return render_template("patient.html", user=user)
+    if request.method == 'GET':
+        data = find("patient")
+        return render_template("patient.html", user=user, patient_data=data)
+
 
 
 @app.route("/pharmacy")
@@ -226,6 +245,7 @@ def pharmacy_page():
 
 
 @app.route("/camera")
+@logged_in
 def camera_page():
     return render_template("camera.html", user=user)
 
@@ -235,23 +255,38 @@ def about_us_page():
     return render_template("about.html", user=user)
 
 
-@app.route("/process_image", methods=["POST"])
-def process_image():
-    data = request.json
-    image_data = data["image"].split(",")[1]  # Extract image data from base64 format
-
-    # You can save the image data as a file here if needed
-    # For now, we'll just return a sample text
-    sample_text = "Hello, World!"
-
-    return jsonify({"text": sample_text})
-
-
 @app.route("/not_found")
 @app.errorhandler(404)
 def not_found(e):
     return render_template("not_found.html")
 
+@app.route("/process_image", methods=["POST"])
+def process_image():
+    print("Processing image")
+    try:
+        uploaded_file = request.files["image"]
+        if uploaded_file.filename != "":
+            image_path = os.path.join("uploads", uploaded_file.filename)
+            uploaded_file.save(image_path)
+            
+            extracted_text = ocr_core(image_path)  # Use the OCR function
+            response = {"text": extracted_text}
+
+            data = insert("prescription", {"text": extracted_text})
+
+            if data:
+                print("Inserted Successfully")
+                print(data)
+
+            else: 
+                print("Insertion Failed")
+                print(data)
+        else:
+            response = {"error": "No file uploaded"}
+    except Exception as e:
+        response = {"error": str(e)}
+    
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run(debug=True)

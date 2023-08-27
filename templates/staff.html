@@ -1,43 +1,30 @@
 {% extends 'base.html' %} 
 {% block title %}Staff{% endblock title %} 
 {% block body %}
-<div id="employee">
-{% for employee in employees %}
-<div class="container">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title d-flex mt-2">
-        <img
-          src="https://via.placeholder.com/50x50"
-          class="rounded-circle me-2"
-          alt="..."
-        />Employee Name
-      </h5>
-      <p class="card-text">Department Attendance</p>
+<div id="doctors">
+  <div id="doctors-list">
+    <div class="container">
+      <h1 class="text-center">Doctors</h1>
+        <div class="row">
+            {% for doctors in staff_data %}
+            <div class="col-md-4"> <!-- Adjust col-md-4 based on the number of cards per row -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ doctors.name }}</h5>
+                        <p class="card-text">
+                            <strong>Name:</strong> {{ doctors.name }}<br>
+                            <strong>Designation:</strong> {{ doctors.designation }}<br>
+                            <strong>Speciality:</strong> {{ doctors.speciality }}<br>
+                            <strong>Email:</strong> {{ doctors.email }}<br>
+                            <strong>Employee id:</strong> {{ doctors.employee_id }}<br>
+                            <strong>Phone number:</strong> {{ doctors.phone_number }}
+                            <!-- Add more doctors information fields as needed -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
   </div>
-</div>
-{% endfor %}
-</div>
-<div id="equipment">
-  {% for equipment in equipments %}
-  <div class="container">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title d-flex mt-2">
-          <img
-            src="https://via.placeholder.com/50x50"
-            class="rounded-circle me-2"
-            alt="..."
-          />Employee Name
-        </h5>
-        <p class="card-text">Department Attendance</p>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-<div id="operation-room">
-  <p>Operation Room</p>
-</div>
 {% endblock body %}

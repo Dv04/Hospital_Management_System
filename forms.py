@@ -24,7 +24,7 @@ class PatientDetailsForm(FlaskForm):
 class LoginUserForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
-    role = SelectField("Role", choices=[("doctor", "Doctor"), ("reception", "Reception"), ("staff", "Staff"), ("patient", "Patient"), ("pharmacy", "Pharmacy")])
+    role = SelectField("Role", choices=[("doctor", "Doctor"), ("reception", "Reception"), ("staff", "Staff"), ("patient", "Patient")])
     submit = SubmitField("Log In")
 
 class RegisterUserForm(FlaskForm):
