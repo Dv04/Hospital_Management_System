@@ -48,6 +48,8 @@ def logged_in(function):
 
     return decorated_function
 
+def user_priv(function):
+    return decorated_function
 
 user = User()
 
@@ -72,23 +74,20 @@ def login_page():
         if emailCheck:
             hashPassword = emailCheck["password"]
 
-            password = generate_password_hash(
-                user_login.password.data, method="pbkdf2:sha256", salt_length=8
-            )
+            password = user_login.password.data
 
             if email == emailCheck["email"] and role == emailCheck["role"]:
-                password = check_password_hash(pwhash=hashPassword, password=password)
-
-                user.email = email
-                user.role = role
-                user.is_active = True
-                session['user'] = {  # Store user data in a session
-                    'email': email,
-                    'role': role,
-                    'is_active': True
-                }
-                print("Log in successful")
-                return redirect(url_for(f"{role}_page"))
+                if check_password_hash(pwhash=hashPassword, password=password):
+                    user.email = email
+                    user.role = role
+                    user.is_active = True
+                    session['user'] = {  # Store user data in a session
+                        'email': email,
+                        'role': role,
+                        'is_active': True
+                    }
+                    print("Log in successful")
+                    return redirect(url_for(f"{role}_page"))
 
             else:
                 print("User does not exist")
@@ -163,17 +162,19 @@ def sign_out_page():
 @app.route("/staff", methods=["GET", "POST"])
 @logged_in
 def staff_page():
+    data = None
     if request.method == 'GET':
         data = find("doctors")
-        return render_template("staff.html", user=user, staff_data=data)
+    return render_template("staff.html", user=user, staff_data=data)
 
 
 @app.route("/medicine", methods=["GET", "POST"])
 @logged_in
 def hospital_page():
+    data = None
     if request.method == 'GET':
         data = find("madicine")
-        return render_template("medicine.html", user=user, medicine_data=data)
+    return render_template("medicine.html", user=user, medicine_data=data)
 
 
 @app.route("/doctor", methods=["GET", "POST"])
@@ -186,7 +187,13 @@ def doctor_page():
     return render_template("doctor.html", user=user, stt_form=stt_form, text=text)
 
 
+@app.route("/reception", methods=["GET", "POST"])
+def reception_page():
+    stt_form = STTForm()
+    return redirect(url_for("disease_prediction"))
+
 @app.route("/prediction", methods=["GET", "POST"])
+@logged_in
 def disease_prediction():
     form = DiseaseDetailsForm(request.form)
     if request.method == "POST":
@@ -238,6 +245,7 @@ def pharmacy_page():
 
 
 @app.route("/camera")
+@logged_in
 def camera_page():
     return render_template("camera.html", user=user)
 
